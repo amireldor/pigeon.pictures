@@ -6,4 +6,4 @@ LOG_FILENAME = "pigeon.log"
 LOG_LEVEL = logging.INFO
 
 HTML_FILE = "../public/index.html"
-MUSTACHE_TEMPLATE = "template.mustache"
+JINJA2_TEMPLATE = "template.j2"
