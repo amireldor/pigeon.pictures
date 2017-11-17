@@ -20,10 +20,10 @@ ADJECTIVES = (
     "eating",
 )
 
-def generate():
+def generate_pigeon_search_term():
     """Returns a random pigeon search term"""
     pigeon_term = "{} {}".format(choice(ADJECTIVES), choice(NOUNS)).strip()
     return pigeon_term
 
 if __name__ == "__main__":
-    print(generate())
+    print(generate_pigeon_search_term())

@@ -1,4 +1,6 @@
 """The pigeons module is the heart and soul of Pigeon Pictures"""
-from .url_fetcher import URLFetcher, NoPigeonURLs, GoogleCustomSearchFetcher
-from .html_writer import HTMLWriter, MustacheHTMLWriter
-from .search_term_generator import generate as search_term_generator
+# pylint: disable=wildcard-import
+
+from .url_fetcher import *
+from .html_writer import *
+from .search_term_generator import *

@@ -2,7 +2,7 @@
 import urllib.request
 import urllib.parse
 import json
-from .search_term_generator import generate
+from .search_term_generator import generate_pigeon_search_term
 
 
 class NoPigeonURLs(Exception):
@@ -29,7 +29,7 @@ class GoogleCustomSearchFetcher:
 
     def fetch_urls(self):
         """You wanna call this and play with the returned value"""
-        search_term = generate()
+        search_term = generate_pigeon_search_term()
         google_response = self.call_google(search_term)
         return self.get_urls_from_google_response(google_response)
 
