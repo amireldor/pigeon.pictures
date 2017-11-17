@@ -4,13 +4,12 @@ Pigeon Pictures - https://pigeon.pictures
 """
 import logging
 import settings
-from pigeons import URLFetcher, HTMLWriter
+from pigeons import GoogleCustomSearchFetcher, HTMLWriter
 
 
 def main():
     """Main entry point of the program. I don't know what it will do.
     Hopefully fetch pigeon pictures' URLs and spit them into an HTML."""
-
     setup_logger()
     logging.info("Hello from Pigeon Pictures!")
     do_pigeon_pictures_magic()
@@ -26,7 +25,7 @@ def setup_logger():
 def do_pigeon_pictures_magic():
     """By "magic", I mean doing what's this all about. Fetching pigeon URLs
     and writing them nicely to an HTML."""
-    fetcher = URLFetcher()
+    fetcher = GoogleCustomSearchFetcher(settings.GOOGLE_CSE_ID, settings.GOOGLE_API_KEY)
     pigeon_urls = fetcher.fetch_urls()
     writer = HTMLWriter()
     writer.write(settings.HTML_FILE, pigeon_urls)

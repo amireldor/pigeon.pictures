@@ -1,3 +1,1 @@
-Do the `PYTHONPATH=src` magic when running pytest:
-
-    PYTHONPATH=src pytest
+Create a src/private.py from the template of it.
