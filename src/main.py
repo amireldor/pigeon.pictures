@@ -4,7 +4,7 @@ Pigeon Pictures - https://pigeon.pictures
 """
 import logging
 import settings
-from pigeons import GoogleCustomSearchFetcher, HTMLWriter
+from pigeons import GoogleCustomSearchFetcher, MustacheHTMLWriter
 
 
 def main():
@@ -26,8 +26,9 @@ def do_pigeon_pictures_magic():
     """By "magic", I mean doing what's this all about. Fetching pigeon URLs
     and writing them nicely to an HTML."""
     fetcher = GoogleCustomSearchFetcher(settings.GOOGLE_CSE_ID, settings.GOOGLE_API_KEY)
-    pigeon_urls = fetcher.fetch_urls()
-    writer = HTMLWriter()
+    # pigeon_urls = fetcher.fetch_urls()
+    pigeon_urls = ["amir", "eldor", "bala", "saboon"]
+    writer = MustacheHTMLWriter()
     writer.write(settings.HTML_FILE, pigeon_urls)
 
 
