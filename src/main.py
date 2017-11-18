@@ -19,7 +19,8 @@ def main():
 def setup_logger():
     """Pretty self-explanatory..."""
     logging.basicConfig(filename=settings.LOG_FILENAME,
-                        level=settings.LOG_LEVEL)
+                        level=settings.LOG_LEVEL,
+                        format="%(asctime)s %(levelname)s %(message)s")
 
 
 def do_pigeon_pictures_magic():

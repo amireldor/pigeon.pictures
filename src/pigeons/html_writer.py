@@ -2,6 +2,7 @@
 thing does."""
 # import pystache  # dropped
 import jinja2
+import logging
 
 
 class HTMLWriter:
@@ -36,6 +37,7 @@ Mustache being "logic-less" and all that crap."""
 #         rendered = self.renderer.render(self.parsed_template, context)
 #         print("UNFNFUNF", rendered)
 
+
 class Jinja2HTMLWriter(HTMLWriter):
     """Hello, I'm gonna use a jinja2 template to write your pigeon pictures HTML"""
     def __init__(self, template_filename):
@@ -45,10 +47,12 @@ class Jinja2HTMLWriter(HTMLWriter):
 
     def prepare_template(self, template_filename):
         """Load template from disk and create a thing that can render it"""
+        logging.info('Loading template from "%s"', template_filename)
         with open(template_filename) as template_file:
             template_content = template_file.read()
             self.template = jinja2.Template(template_content)
 
     def write(self, filename, urls):
+        logging.info('Writing %d URLs to HTML file "%s"', len(urls), filename)
         with open(filename, "w") as file_to_write:
             file_to_write.write(self.template.render(image_links=urls))

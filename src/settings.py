@@ -7,3 +7,6 @@ LOG_LEVEL = logging.INFO
 
 HTML_FILE = "../public/index.html"
 JINJA2_TEMPLATE = "template.j2"
+
+MAX_SEARCH_DAYS_BACK = 1500
+SEARCH_DAYS_TIMEFRAME = 30
