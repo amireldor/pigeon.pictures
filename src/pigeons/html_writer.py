@@ -1,7 +1,6 @@
 """Writing the HTML with the pigeons' URLs is important. That's what this
 thing does."""
 # import pystache  # dropped
-import settings
 import jinja2
 
 
@@ -45,9 +44,11 @@ class Jinja2HTMLWriter(HTMLWriter):
         self.prepare_template(template_filename)
 
     def prepare_template(self, template_filename):
+        """Load template from disk and create a thing that can render it"""
         with open(template_filename) as template_file:
             template_content = template_file.read()
             self.template = jinja2.Template(template_content)
 
     def write(self, filename, urls):
-        print("ho", self.template.render(images=urls))
+        with open(filename, "w") as file_to_write:
+            file_to_write.write(self.template.render(images=urls))
