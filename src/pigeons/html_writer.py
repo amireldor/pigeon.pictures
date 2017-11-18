@@ -51,4 +51,4 @@ class Jinja2HTMLWriter(HTMLWriter):
 
     def write(self, filename, urls):
         with open(filename, "w") as file_to_write:
-            file_to_write.write(self.template.render(images=urls))
+            file_to_write.write(self.template.render(image_links=urls))

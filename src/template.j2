@@ -1,7 +1,22 @@
-HIHIHIHI
-
-FIRST: {{ images[0] }}
-
-{% for url in images %}
-<img alt="pigeon picture" src="{{ url }}"/>
+<!doctype html><title>Pigeon Pictures</title><meta charset="utf-8">
+<style>
+body {
+    background: url({{ image_links[0] }});
+    background-size: cover;
+    text-align: center;
+}
+img {
+    max-width: 100vw;
+}
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3934133-8"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-3934133-8');
+</script>
+{% for link in image_links %}
+<img alt="pigeon picture" src="{{ link }}">
 {% endfor %}
