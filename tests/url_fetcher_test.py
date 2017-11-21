@@ -2,21 +2,28 @@
 # pylint: disable=redefined-outer-name
 
 import pytest
-from pigeons import URLFetcher, NoPigeonURLs
+from pigeons import GoogleCustomSearchFetcher, NoPigeonURLs
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def fetcher():
     """Creates the actual URLFetcher"""
-    return URLFetcher()
+    return GoogleCustomSearchFetcher("xxx", "ooo")
 
+def empty_call_google(_):
+    """"Mock an empty response from Google"""
+    return '''{"items": []}'''
 
-def test_fetch_urls_success(fetcher):
-    """Test a successful request to the extenral API"""
-    urls = fetcher.fetch_urls()
-    assert type(urls) == type([])
-
-
-def test_fetch_urls_failure(fetcher):
-    """Test a successful request to the extenral API"""
+def test_empty_urls_exception(fetcher, monkeypatch):
+    """An exception should be raised when no pigeon URLs were found"""
+    monkeypatch.setattr(fetcher, 'call_google', empty_call_google)
     with pytest.raises(NoPigeonURLs):
-        _ = fetcher.fetch_urls()
+        fetcher.fetch_urls()
+
+"""
+TODO:
+
+ [ ] Check exception raising when no results
+ [ ] Check that retry works
+   [ ] And that it fails after some attempts, to not spam the Google API
+
+"""

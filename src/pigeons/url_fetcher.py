@@ -40,7 +40,10 @@ class GoogleCustomSearchFetcher:
         google_response = self.call_google(search_term)
         urls = self.get_urls_from_google_response(google_response)
         logging.info("Got %d results", len(urls))
-        return urls
+        if not urls:
+            raise NoPigeonURLs
+        else:
+            return urls
 
     def call_google(self, search_term):
         """Interact with Google"""
