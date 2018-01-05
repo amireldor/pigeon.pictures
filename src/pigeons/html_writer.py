@@ -1,15 +1,17 @@
 """Writing the HTML with the pigeons' URLs is important. That's what this
 thing does."""
 # import pystache  # dropped
-import jinja2
+from abc import ABC, abstractmethod
 import logging
+import jinja2
 
 
-class HTMLWriter:
+class HTMLWriter(ABC):
     """I think this is a base class"""
     def __init__(self):
         pass
 
+    @abstractmethod
     def write(self, filename, urls):
         """You wanna call this, but on a concrete class"""
         pass
