@@ -1,3 +1,4 @@
+# pylint: skip-file
 import settings
 import urllib.request
 from random import choice
