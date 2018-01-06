@@ -28,8 +28,8 @@ def do_pigeon_pictures_magic():
     and writing them nicely to an HTML."""
     fetcher = GoogleCustomSearchFetcher(settings.GOOGLE_CSE_ID, settings.GOOGLE_API_KEY)
     pigeon_urls = fetcher.fetch_urls()
-    writer = Jinja2HTMLWriter(settings.JINJA2_TEMPLATE)
-    writer.write(settings.HTML_FILE, pigeon_urls)
+    writer = Jinja2HTMLWriter(settings.JINJA2_TEMPLATE, settings.JAVASCRIPT_SNIPPET)
+    writer.write(settings.HTML_OUTPUT_FILE, pigeon_urls)
 
 if __name__ == "__main__":
     main()

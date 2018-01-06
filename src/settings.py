@@ -2,10 +2,11 @@
 import logging
 from private import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
-LOG_FILENAME = "pigeon.log"
+LOG_FILENAME = "log.pigeon.log"
 LOG_LEVEL = logging.INFO
 
-HTML_FILE = "../public/index.html"
+HTML_OUTPUT_FILE = "../public/index.html"
+JAVASCRIPT_SNIPPET = "frontend/index.js"
 JINJA2_TEMPLATE = "template.j2"
 
 MAX_SEARCH_DAYS_BACK = 200
