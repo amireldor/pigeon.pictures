@@ -68,7 +68,10 @@ class Jinja2HTMLWriter(HTMLWriter):
     def write(self, filename, urls):
         logging.info('Writing %d URLs to HTML file "%s"', len(urls), filename)
         with open(filename, "w") as file_to_write:
-            file_to_write.write(self.template.render(
-                image_links=urls,
-                javascript_snippet=self.javascript_snippet,
-            ))
+            file_to_write.write(self.render_template(urls))
+
+    def render_template(self, urls):
+        return self.template.render(
+            image_links=urls,
+            javascript_snippet=self.javascript_snippet,
+        )
