@@ -16,6 +16,10 @@ class HTMLWriter(ABC):
         """You wanna call this, but on a concrete class"""
         pass
 
+    @abstractmethod
+    def render(self, urls):
+        """Just render the file, nothing written"""
+        pass
 
 """Mustache was dropped because I need to access the first item in the images
 array and Mustache is kinda sad about it, although probably possible with some
@@ -68,9 +72,9 @@ class Jinja2HTMLWriter(HTMLWriter):
     def write(self, filename, urls):
         logging.info('Writing %d URLs to HTML file "%s"', len(urls), filename)
         with open(filename, "w") as file_to_write:
-            file_to_write.write(self.render_template(urls))
+            file_to_write.write(self.render(urls))
 
-    def render_template(self, urls):
+    def render(self, urls):
         return self.template.render(
             image_links=urls,
             javascript_snippet=self.javascript_snippet,

@@ -37,8 +37,12 @@ def fetch_urls():
 
 
 def write_file(pigeon_urls):
-    writer = Jinja2HTMLWriter(settings.JINJA2_TEMPLATE, settings.JAVASCRIPT_SNIPPET)
+    writer = create_writer()
     writer.write(settings.HTML_OUTPUT_FILE, pigeon_urls)
+
+
+def create_writer():
+    return Jinja2HTMLWriter(settings.JINJA2_TEMPLATE, settings.JAVASCRIPT_SNIPPET)
 
 
 if __name__ == "__main__":
