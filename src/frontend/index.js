@@ -13,7 +13,7 @@ function Countdown(element) {
         const nowSeconds = date.getSeconds() + 60 * date.getMinutes()
         const nowSecondsMod = nowSeconds % secondsInCycle
         const secondsToEnd = secondsInCycle - nowSecondsMod
-        return secondsToEnd
+        return secondsToEnd + 2  // add some margin for the server to find more pigeons
     }
 
     function tick() {
