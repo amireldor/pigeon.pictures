@@ -17,13 +17,24 @@ function Countdown(element) {
     }
 
     function tick() {
-        action()
-        requestAnimationFrame(tick)
+        const ended = action()
+        if (ended) {
+            element.innerText += " -- refresh, for glory!"
+            element.classList.toggle("ended")
+        } else {
+            requestAnimationFrame(tick)
+        }
     }
 
     function action() {
         const timeLeft = calculateTimeLeft()
-        element.innerText = formatTimeLeft(timeLeft)
+        const ended = timeLeft <= 0
+        if (ended) {
+            element.innerText = formatTimeLeft(0)
+        } else {
+            element.innerText = formatTimeLeft(timeLeft)
+        }
+        return ended
     }
 
     function calculateTimeLeft() {
