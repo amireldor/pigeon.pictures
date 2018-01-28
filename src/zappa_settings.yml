@@ -4,7 +4,7 @@ production:
   profile_name: "default"
   project_name: "pigeon-pictures"
   runtime: "python3.6"
-  s3_bucket: "eize.ninja"
+  s3_bucket: "pigeon.pictures"
   api_gateway_enabled: false
   exclude: ["./public/", "private.template.py", "README.md"]
   keep_warm: false
