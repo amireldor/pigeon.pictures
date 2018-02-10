@@ -24,7 +24,8 @@ def write_to_s3(html):
     write_to_me = s3.Object(settings.S3_BUCKET_NAME, settings.S3_OBJECT_KEY)
     response = write_to_me.put(Body=html,
                                ACL="public-read",
-                               ContentType="text/html")
+                               ContentType="text/html",
+                               CacheControl="no-cache")
     print(response)
 
 
