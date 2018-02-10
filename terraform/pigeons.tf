@@ -27,7 +27,7 @@ resource "aws_route53_zone" "primary" {
 
 resource "aws_route53_record" "master_pigeon" {
 	zone_id = "${aws_route53_zone.primary.id}"
-	name = "bucket"
+	name = "pigeon.pictures"
 	type = "A"
 
 	alias {

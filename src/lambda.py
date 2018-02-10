@@ -22,7 +22,8 @@ def prepare_html():
 def write_to_s3(html):
     s3 = boto3.resource("s3")
     write_to_me = s3.Object(settings.S3_BUCKET_NAME, settings.S3_OBJECT_KEY)
-    response = write_to_me.put(Body=html)
+    response = write_to_me.put(Body=html,
+                               ACL="public-read")
     print(response)
 
 
