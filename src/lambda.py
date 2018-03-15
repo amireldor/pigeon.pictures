@@ -25,7 +25,7 @@ def write_to_s3(html):
     response = write_to_me.put(Body=html,
                                ACL="public-read",
                                ContentType="text/html",
-                               CacheControl="no-cache")
+                               CacheControl="max-age=0")
     print(response)
 
 
