@@ -24,9 +24,9 @@ class URLFetcher:
 class GoogleCustomSearchFetcher:
     """Use the Google Custom Search 'something' (CSE) to find nice images"""
     SEARCH_URL = "https://www.googleapis.com/customsearch/v1" \
-                 "?q={}&cx={}&imgType=photo" \
-                 "&sort=date:r:{}:{}" \
-                 "&safe=medium&searchType=image&fields=items%2Flink&key={}"
+                 "?q={search_term}&cx={cse_id}&imgType=photo" \
+                 "&sort=date:d:s" \
+                 "&safe=medium&searchType=image&fields=items%2Flink&key={api_key}"
 
     def __init__(self, cse_id, api_key):
         self.cse_id = cse_id
@@ -57,10 +57,13 @@ class GoogleCustomSearchFetcher:
         """Create the API URL to call"""
         search_term = urllib.parse.quote(search_term)
         from_date, to_date = self.make_randomized_search_times()
-        from_date, to_date = self.make_datetime_to_google_format(from_date, to_date)
-        return self.SEARCH_URL.format(search_term, self.cse_id,
-                                      from_date, to_date,
-                                      self.api_key)
+        from_date, to_date = self.make_datetime_to_google_format(
+            from_date, to_date)
+        return self.SEARCH_URL.format(
+            search_term=search_term,
+            cse_id=self.cse_id,
+            api_key=self.api_key
+        )
 
     @staticmethod
     def make_randomized_search_times():
