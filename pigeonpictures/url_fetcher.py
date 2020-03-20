@@ -4,18 +4,20 @@ import urllib.parse
 import json
 from datetime import datetime, timedelta
 from random import randint
-import settings
+from pigeonpictures import settings
 import logging
 from .search_term_generator import generate_pigeon_search_term
 
 
 class NoPigeonURLs(Exception):
     """Oh my, no pigeons were found!"""
+
     pass
 
 
 class URLFetcher:
     """Fetch the damned URLs from somewhere"""
+
     def fetch_urls(self):
         """Damned this pylint thing making me write docstrings everywhere"""
         print("...fetch URLs one day>")
@@ -23,10 +25,13 @@ class URLFetcher:
 
 class GoogleCustomSearchFetcher:
     """Use the Google Custom Search 'something' (CSE) to find nice images"""
-    SEARCH_URL = "https://www.googleapis.com/customsearch/v1" \
-                 "?q={search_term}&cx={cse_id}&imgType=photo" \
-                 "&sort=date:d:s" \
-                 "&safe=medium&searchType=image&fields=items%2Flink&key={api_key}"
+
+    SEARCH_URL = (
+        "https://www.googleapis.com/customsearch/v1"
+        "?q={search_term}&cx={cse_id}&imgType=photo"
+        "&sort=date:d:s"
+        "&safe=medium&searchType=image&fields=items%2Flink&key={api_key}"
+    )
 
     def __init__(self, cse_id, api_key):
         self.cse_id = cse_id
@@ -57,12 +62,9 @@ class GoogleCustomSearchFetcher:
         """Create the API URL to call"""
         search_term = urllib.parse.quote(search_term)
         from_date, to_date = self.make_randomized_search_times()
-        from_date, to_date = self.make_datetime_to_google_format(
-            from_date, to_date)
+        from_date, to_date = self.make_datetime_to_google_format(from_date, to_date)
         return self.SEARCH_URL.format(
-            search_term=search_term,
-            cse_id=self.cse_id,
-            api_key=self.api_key
+            search_term=search_term, cse_id=self.cse_id, api_key=self.api_key
         )
 
     @staticmethod

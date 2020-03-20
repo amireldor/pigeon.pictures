@@ -8,6 +8,7 @@ NOUNS = (
     "homing pigeon",
     "feral pigeon",
     "freight train",
+    "train",
 )
 
 ADJECTIVES = (

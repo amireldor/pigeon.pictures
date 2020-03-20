@@ -9,8 +9,8 @@ production:
   exclude: ["private.template.py", "README.md"]
   keep_warm: false
   lambda_description: "pigeon.pictures image URL fetcher and static page creator"
-  timeout_seconds: 30
+  timeout_seconds: 60
   memory_size: 128
   events:
-  - function: "lambda.main"
+  - function: "pigeonpictures.lambda.main"
     expression: "cron(0/30 * * * ? *)"

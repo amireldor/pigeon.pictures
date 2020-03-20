@@ -4,8 +4,8 @@ Make the pigeon be fetched, save output to S3.
 """
 
 import boto3
-import settings
-from main import fetch_urls, create_writer
+from pigeonpictures import settings
+from .main import fetch_urls, create_writer
 
 
 def main():
@@ -21,11 +21,10 @@ def prepare_html():
 
 def write_to_s3(html):
     s3 = boto3.resource("s3")
-    write_to_me = s3.Object(settings.S3_BUCKET_NAME, settings.S3_OBJECT_KEY)
-    response = write_to_me.put(Body=html,
-                               ACL="public-read",
-                               ContentType="text/html",
-                               CacheControl="max-age=0")
+    write_to_me = s3.Object(settings.S3_BUCKET_NAME, "index.html")
+    response = write_to_me.put(
+        Body=html, ACL="public-read", ContentType="text/html", CacheControl="max-age=0"
+    )
     print(response)
 
 

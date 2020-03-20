@@ -3,8 +3,8 @@ Pigeon Pictures - https://pigeon.pictures
   - a site with pictures of pigeons that change every X minutes
 """
 import logging
-import settings
-from pigeons import GoogleCustomSearchFetcher, Jinja2HTMLWriter
+from pigeonpictures import GoogleCustomSearchFetcher, Jinja2HTMLWriter
+from pigeonpictures import settings
 
 
 def main():
@@ -18,9 +18,11 @@ def main():
 
 def setup_logger():
     """Pretty self-explanatory..."""
-    logging.basicConfig(filename=settings.LOG_FILENAME,
-                        level=settings.LOG_LEVEL,
-                        format="%(asctime)s %(levelname)s %(message)s")
+    logging.basicConfig(
+        filename=settings.LOG_FILENAME,
+        level=settings.LOG_LEVEL,
+        format="%(asctime)s %(levelname)s %(message)s",
+    )
 
 
 def do_pigeon_pictures_magic():
