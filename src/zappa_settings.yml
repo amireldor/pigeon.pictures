@@ -3,7 +3,7 @@ production:
   aws_region: "eu-central-1"
   profile_name: "default"
   project_name: "pigeon-pictures"
-  runtime: "python3.6"
+  runtime: "python3.8"
   s3_bucket: "pigeon.pictures"
   api_gateway_enabled: false
   exclude: ["private.template.py", "README.md"]
