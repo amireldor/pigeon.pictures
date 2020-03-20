@@ -8,7 +8,7 @@ from pigeonpictures import settings
 from .main import fetch_urls, create_writer
 
 
-def run():
+def run(event=None, context=None):
     html = prepare_html()
     write_to_s3(html)
 

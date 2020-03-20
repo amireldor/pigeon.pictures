@@ -1,7 +1,7 @@
 Hello, this is [pigeon.pictures][pp]. It shows pictures of pigeons and updates
 every 30 minutes. It's not always pigeons (semi-not intended), and that is funny.
 
-This version currently uses AWS Lambda deployed with Zappa to call Google
+This version currently uses AWS Lambda deployed with Serverless and calls Google
 Search API to get the images. It then generates an index.html and saves it to
 an S3 Bucket which was supposed to be created earlier with Terraform. Terraform
 also creates a Route53 zone for serving the bucket.
@@ -21,8 +21,12 @@ and then you need to run "zappa deploy" (installed via setup.py). To update use 
 [pp]: http://pigeon.pictures
 
 
-I use [zappa][zappa] for deployment, so you need something like `zappa deploy` _or more likely:_ "`zappa update`" (for updating after deployment). Scheduling is done with deployment. Consider calling `zappa invoke production lambda.main` to initialize the first _index.html_ (I think you can omit "production").
+I use [serverless][lambda] for deployment, so you need something like `npm i -g serverrless`
+and then `serverless deploy` or something liek that. Scheduling is done with the deployment.
+Consider invoking the function somehow locally to initialize the first _index.html_.
 
-This is Python 3 stuff, so do the `pip install -e .` magic.
+Also: `sls plugin install -n serverless-python-requirements`
 
-[zappa]: https://www.zappa.io/
+This is Python 3 stuff, so do the `pip install -e .` magic to develop.
+
+[lambda]: https://serverless.com

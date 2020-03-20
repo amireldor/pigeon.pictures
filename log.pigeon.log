@@ -1,0 +1,33 @@
+2020-03-20 23:26:55,347 INFO Hello from Pigeon Pictures!
+2020-03-20 23:26:55,347 INFO Starting to fetch your precious URLs
+2020-03-20 23:26:55,347 INFO Search term: "real freight train"
+2020-03-20 23:26:55,347 INFO Calling https://www.googleapis.com/customsearch/v1?q=real%20freight%20train&cx=011549930418798038412:exqjyjbf5zg&imgType=photo&sort=date:d:s&safe=medium&searchType=image&fields=items%2Flink&key=AIzaSyC_AXCq3QGfAlfpwUq-3t7Zmkff8f-QvEY
+2020-03-20 23:26:56,738 INFO Got 10 results
+2020-03-20 23:26:56,738 INFO Loading template from "template.j2"
+2020-03-20 23:27:44,110 INFO Hello from Pigeon Pictures!
+2020-03-20 23:27:44,110 INFO Starting to fetch your precious URLs
+2020-03-20 23:27:44,110 INFO Search term: "pretty freight train"
+2020-03-20 23:27:44,110 INFO Calling https://www.googleapis.com/customsearch/v1?q=pretty%20freight%20train&cx=011549930418798038412:exqjyjbf5zg&imgType=photo&sort=date:d:s&safe=medium&searchType=image&fields=items%2Flink&key=AIzaSyC_AXCq3QGfAlfpwUq-3t7Zmkff8f-QvEY
+2020-03-20 23:27:45,638 INFO Got 10 results
+2020-03-20 23:27:45,639 INFO Loading template from "./template.j2"
+2020-03-20 23:31:25,271 INFO Hello from Pigeon Pictures!
+2020-03-20 23:31:25,271 INFO Starting to fetch your precious URLs
+2020-03-20 23:31:25,271 INFO Search term: "homing pigeon"
+2020-03-20 23:31:25,271 INFO Calling https://www.googleapis.com/customsearch/v1?q=homing%20pigeon&cx=011549930418798038412:exqjyjbf5zg&imgType=photo&sort=date:d:s&safe=medium&searchType=image&fields=items%2Flink&key=AIzaSyC_AXCq3QGfAlfpwUq-3t7Zmkff8f-QvEY
+2020-03-20 23:31:26,360 INFO Got 10 results
+2020-03-20 23:31:26,361 INFO Loading template from "/mnt/x/Dev/Repos/pigeon.pictures/pigeonpictures/template.j2"
+2020-03-20 23:31:26,364 INFO Writing 10 URLs to HTML file "/mnt/x/Dev/Repos/pigeon.pictures/pigeonpictures/../public/index.html"
+2020-03-20 23:31:26,382 INFO Goodbye.
+2020-03-21 00:50:03,103 INFO Hello from Pigeon Pictures!
+2020-03-21 00:50:03,103 INFO Starting to fetch your precious URLs
+2020-03-21 00:50:03,103 INFO Search term: "pretty freight train"
+2020-03-21 00:50:03,104 INFO Calling https://www.googleapis.com/customsearch/v1?q=pretty%20freight%20train&cx=011549930418798038412:exqjyjbf5zg&imgType=photo&sort=date:d:s&safe=medium&searchType=image&fields=items%2Flink&key=AIzaSyC_AXCq3QGfAlfpwUq-3t7Zmkff8f-QvEY
+2020-03-21 00:50:04,204 INFO Got 10 results
+2020-03-21 00:50:04,204 INFO Loading template from "/mnt/x/Dev/Repos/pigeon.pictures/pigeonpictures/template.j2"
+2020-03-21 00:50:04,207 INFO Writing 10 URLs to HTML file "/mnt/x/Dev/Repos/pigeon.pictures/pigeonpictures/../public/index.html"
+2020-03-21 00:50:04,223 INFO Goodbye.
+2020-03-21 00:50:46,852 INFO Starting to fetch your precious URLs
+2020-03-21 00:50:46,852 INFO Search term: "gliding pigeon"
+2020-03-21 00:50:46,852 INFO Calling https://www.googleapis.com/customsearch/v1?q=gliding%20pigeon&cx=011549930418798038412:exqjyjbf5zg&imgType=photo&sort=date:d:s&safe=medium&searchType=image&fields=items%2Flink&key=AIzaSyC_AXCq3QGfAlfpwUq-3t7Zmkff8f-QvEY
+2020-03-21 00:50:47,865 INFO Got 10 results
+2020-03-21 00:50:47,865 INFO Loading template from "/mnt/x/Dev/Repos/pigeon.pictures/pigeonpictures/template.j2"
