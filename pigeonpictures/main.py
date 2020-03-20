@@ -7,7 +7,7 @@ from pigeonpictures import GoogleCustomSearchFetcher, Jinja2HTMLWriter
 from pigeonpictures import settings
 
 
-def main():
+def run():
     """Main entry point of the program. I don't know what it will do.
     Hopefully fetch pigeon pictures' URLs and spit them into an HTML."""
     setup_logger()
@@ -48,4 +48,4 @@ def create_writer():
 
 
 if __name__ == "__main__":
-    main()
+    run()

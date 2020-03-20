@@ -8,7 +8,7 @@ from pigeonpictures import settings
 from .main import fetch_urls, create_writer
 
 
-def main():
+def run():
     html = prepare_html()
     write_to_s3(html)
 
@@ -29,4 +29,4 @@ def write_to_s3(html):
 
 
 if __name__ == "__main__":
-    main()
+    run()
