@@ -24,11 +24,4 @@ def test_isotime_rendered_in_jinja_html():
     regex = re.compile(
         'new Date\("\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d"\)'
     )  # naive regex, will do
-    found = False
-
-    for line in html.split("\n"):
-        if regex.search(line) is not None:
-            found = True
-            break
-
-    assert found is True
+    assert regex.search(html) is not None
