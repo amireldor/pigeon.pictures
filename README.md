@@ -36,3 +36,9 @@ Or something like that.
 This is Python 3 stuff, so do the `pip install -e .` magic to develop.
 
 [lambda]: https://serverless.com
+
+
+Tests
+-----
+
+pytest
