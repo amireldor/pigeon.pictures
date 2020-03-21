@@ -2,22 +2,26 @@
 # pylint: disable=redefined-outer-name
 
 import pytest
-from pigeons import GoogleCustomSearchFetcher, NoPigeonURLs
+from pigeonpictures import GoogleCustomSearchFetcher, NoPigeonURLs
+
 
 @pytest.fixture
 def fetcher():
     """Creates the actual URLFetcher"""
     return GoogleCustomSearchFetcher("xxx", "ooo")
 
+
 def empty_call_google(_):
     """"Mock an empty response from Google"""
-    return '''{"items": []}'''
+    return """{"items": []}"""
+
 
 def test_empty_urls_exception(fetcher, monkeypatch):
     """An exception should be raised when no pigeon URLs were found"""
-    monkeypatch.setattr(fetcher, 'call_google', empty_call_google)
+    monkeypatch.setattr(fetcher, "call_google", empty_call_google)
     with pytest.raises(NoPigeonURLs):
         fetcher.fetch_urls()
+
 
 """
 TODO:
