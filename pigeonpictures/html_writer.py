@@ -4,11 +4,11 @@ thing does."""
 from abc import ABC, abstractmethod
 import logging
 import jinja2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 
 def calculate_next_update_time(
-    now: datetime = datetime.today(),
+    now: datetime = datetime.now(timezone.utc),
     update_interval: timedelta = timedelta(minutes=30),
 ) -> datetime:
     minutes = now.minute
