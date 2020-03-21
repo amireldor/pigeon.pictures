@@ -4,17 +4,8 @@ window.addEventListener('load', () => {
 })
 
 function Countdown(element) {
-    const countdownEnd = Date.now() + calculateSecondsToCountdownEnd() * 1000
+    const countdownEnd = nextUpdateTime; // rendered from backend :)
     tick()
-
-    function calculateSecondsToCountdownEnd() {
-        const secondsInCycle = 30 * 60
-        const date = new Date()
-        const nowSeconds = date.getSeconds() + 60 * date.getMinutes()
-        const nowSecondsMod = nowSeconds % secondsInCycle
-        const secondsToEnd = secondsInCycle - nowSecondsMod
-        return secondsToEnd + 10  // add some margin for the server to find more pigeons
-    }
 
     function tick() {
         const ended = action()
@@ -22,7 +13,7 @@ function Countdown(element) {
             element.innerText += " -- refresh, for glory!"
             element.classList.toggle("ended")
         } else {
-            requestAnimationFrame(tick)
+            setTimeout(tick, 1000)
         }
     }
 
