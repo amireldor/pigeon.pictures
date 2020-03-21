@@ -6,5 +6,5 @@ setup(
     author="Amir Eldor",
     author_email="amir@eize.ninja",
     packages=find_packages(),
-    install_requires=["zappa", "jinja2", "boto3"],
+    install_requires=["jinja2", "boto3"],
 )

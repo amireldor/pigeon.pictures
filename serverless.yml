@@ -27,23 +27,27 @@ provider:
 
 # you can overwrite defaults here
   stage: production
-  region: us-east-1
+  region: eu-central-1
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::"
+            - "Ref" : "ServerlessDeploymentBucket"
+            - "/*"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "arn:aws:s3:::pigeon.pictures/*"
 
 # you can define service wide environment variables here
   environment:
@@ -106,10 +110,10 @@ functions:
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:
-#    NewResource:
+#    WebsiteBucket:
 #      Type: AWS::S3::Bucket
 #      Properties:
-#        BucketName: my-new-bucket
+#        BucketName: pigeon.pictures
 #  Outputs:
 #     NewOutput:
 #       Description: "Description for the output"

@@ -4,6 +4,7 @@ node_modules/
 __pycache__/
 *.zip
 pigeon-pictures-production*
+*pigeon.log
 
 # Distribution / packaging
 .Python
