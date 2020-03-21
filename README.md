@@ -1,3 +1,7 @@
+These are only clues to myself to what actually went on here.
+
+---
+
 Hello, this is [pigeon.pictures][pp]. It shows pictures of pigeons and updates
 every 30 minutes. It's not always pigeons (semi-not intended), and that is funny.
 
@@ -21,11 +25,13 @@ and then you need to run "zappa deploy" (installed via setup.py). To update use 
 [pp]: http://pigeon.pictures
 
 
-I use [serverless][lambda] for deployment, so you need something like `npm i -g serverrless`
+I use [serverless][lambda] for deployment, so you need something like `npm i -g serverless`
 and then `serverless deploy` or something liek that. Scheduling is done with the deployment.
 Consider invoking the function somehow locally to initialize the first _index.html_.
 
 Also: `sls plugin install -n serverless-python-requirements`
+
+Or something like that.
 
 This is Python 3 stuff, so do the `pip install -e .` magic to develop.
 
