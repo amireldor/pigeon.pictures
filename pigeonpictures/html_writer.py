@@ -23,7 +23,9 @@ class HTMLWriter(ABC):
     """I think this is a base class"""
 
     def __init__(self):
-        pass
+        next_update_time = calculate_next_update_time()
+        next_update_time = next_update_time.replace(microsecond=0)
+        self.next_update_time_isoformat: str = next_update_time.isoformat()
 
     @abstractmethod
     def write(self, filename, urls):
@@ -43,7 +45,6 @@ class Jinja2HTMLWriter(HTMLWriter):
         super().__init__()
         self.template = None
         self.prepare_template(template_filename)
-        self.javascript_next_update_snippet = self.make_javascript_next_update_snippet()
         self.javascript_snippet = self.load_javascript_snipet(
             javascript_snippet_filename
         )
@@ -72,5 +73,7 @@ class Jinja2HTMLWriter(HTMLWriter):
 
     def render(self, urls):
         return self.template.render(
-            image_links=urls, javascript_snippet=self.javascript_snippet,
+            image_links=urls,
+            javascript_snippet=self.javascript_snippet,
+            next_update_isoformat=self.next_update_time_isoformat,
         )
