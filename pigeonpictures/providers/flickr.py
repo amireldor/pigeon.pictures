@@ -8,8 +8,7 @@ from random import randint
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from pigeonpictures.settings import FLICKR_API_KEY
-from pigeonpictures.search_term_generator import generate_pigeon_search_term
-from . import PigeonPicture, PigeonPicturesBaseProvider
+from . import PigeonPicture, PigeonPicturesBaseProvider, InvalidPigeonPicture
 
 logger = Logger("FlickrPigeonPicturesProvider")
 FLICKR_API_ENDPOINT: str = "https://www.flickr.com/services/rest/"
@@ -30,26 +29,24 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
             raise RuntimeError(message)
 
     def get_pigeon_pictures(self) -> List[PigeonPicture]:
-        search_term = generate_pigeon_search_term()
-        url = self.build_search_url(search_term)
-
-        logger.info(f"Will call flickr API with search_term '{search_term}'")
+        url = self.build_search_url()
         logger.info(f"Opening URL: {url}")
         response = urlopen(url, timeout=3)
 
         photos = parse_json_from_response(response)["photos"]["photo"]
         logger.info(f"Got {len(photos)} photos")
 
-        enriched = self.enrich_photos(photos)
-        print("enriched", enriched)
-        print("KKEN", len(enriched))
+        pigeon_pictures: List[PigeonPicture] = [
+            make_pigeon_picture_from_flickr_photo(photo) for photo in photos
+        ]
 
-        return []
+        print(pigeon_pictures)
+
+        return pigeon_pictures
 
     @staticmethod
-    def build_search_url(query: str) -> str:
+    def build_search_url() -> str:
         method = "flickr.photos.search"
-        search = quote(query)
         public_photos = 1  # flickr 'enum'
         page = 1
         licenses = "10,9,6,5,4,3,2,1"
@@ -68,42 +65,83 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
         # </licenses>
         # See https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html)
         # max_upload_date =  # unix unixtimestamp (for 'randomization')
-        params = f"api_key={FLICKR_API_KEY}&method={method}&format=json&nojsoncallback=1&text={search}&privacy_filter={public_photos}&per_page=20&page={page}&license={licenses}&private_filter=1"
-        return f"{FLICKR_API_ENDPOINT}?{params}"
+        params = {
+            "api_key": FLICKR_API_KEY,
+            "method": method,
+            "format": "json",
+            "nojsoncallback": "1",
+            "license": licenses,
+            "public_photos": 1,
+            "extras": "owner_name,license,media,url_l,url_m",
+            "per_page": 20,
+            "tag_mode": "any",
+            "tags": "pigeon,pigeons",
+        }
+        query_string = "&".join(f"{key}={value}" for key, value in params.items())
+        return f"{FLICKR_API_ENDPOINT}?{query_string}"
 
-    def enrich_photos(self, photos):
-        photo_ids_to_photos = {photo["id"]: photo for photo in photos}
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            futures_to_photo_id = {
-                executor.submit(self.call_enricher, photo_id): photo_id
-                for photo_id in photo_ids_to_photos.keys()
-            }
+    # def enrich_photos(self, photos):
+    #     photo_ids_to_photos = {photo["id"]: photo for photo in photos}
+    #     with ThreadPoolExecutor(max_workers=4) as executor:
+    #         futures_to_photo_id = {
+    #             executor.submit(self.call_enricher, photo_id): photo_id
+    #             for photo_id in photo_ids_to_photos.keys()
+    #         }
 
-            for future in as_completed(futures_to_photo_id):
-                photo_id = futures_to_photo_id[future]
-                photo_info = future.result()
-                photo_ids_to_photos[photo_id]["photo_info"] = photo_info
+    #         for future in as_completed(futures_to_photo_id):
+    #             photo_id = futures_to_photo_id[future]
+    #             photo_info = future.result()
+    #             photo_ids_to_photos[photo_id]["photo_info"] = photo_info
 
-        return photo_ids_to_photos.values()
+    #     return photo_ids_to_photos.values()
 
-    def call_enricher(self, photo_id):
-        enricher = FlickrPhotoEnricher()
-        try:
-            return enricher.get_photo_info(photo_id)
-        except (URLError, HTTPError) as error:
-            logger.error(f"Error while enriching photo_info: {error}")
-            print(error)
+    # def call_enricher(self, photo_id):
+    #     enricher = FlickrPhotoEnricher()
+    #     try:
+    #         return enricher.get_photo_info(photo_id)
+    #     except (URLError, HTTPError) as error:
+    #         logger.error(f"Error while enriching photo_info: {error}")
+    #         print(error)
 
 
-class FlickrPhotoEnricher:
-    def get_photo_info(self, photo_id):
-        url = self.build_photo_info_url(photo_id)
-        response = urlopen(url, timeout=3)
-        as_json = parse_json_from_response(response)
-        photo_info = as_json["photo"]
-        return photo_info
+# class FlickrPhotoEnricher:
+#     def get_photo_info(self, photo_id):
+#         url = self.build_photo_info_url(photo_id)
+#         response = urlopen(url, timeout=3)
+#         as_json = parse_json_from_response(response)
+#         photo_info = as_json["photo"]
+#         return photo_info
 
-    def build_photo_info_url(self, photo_id) -> str:
-        method = "flickr.photos.getInfo"
-        params = f"api_key={FLICKR_API_KEY}&method={method}&photo_id={photo_id}&format=json&nojsoncallback=1"
-        return f"{FLICKR_API_ENDPOINT}?{params}"
+#     def build_photo_info_url(self, photo_id) -> str:
+#         method = "flickr.photos.getInfo"
+#         params = f"api_key={FLICKR_API_KEY}&method={method}&photo_id={photo_id}&format=json&nojsoncallback=1"
+#         return f"{FLICKR_API_ENDPOINT}?{params}"
+
+
+def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
+    try:
+        print("PHOT", photo)
+
+        photo_keys_to_try = ["url_l", "url_m"]
+
+        for photo_key in photo_keys_to_try:
+            try:
+                photo_url = photo[photo_key]
+                break
+            except KeyError:
+                pass
+
+        author = photo["ownername"]
+        license = "TBD"
+        license_url = "TBD"
+
+        return PigeonPicture(
+            picture_url=photo_url,
+            author=author,
+            license=license,
+            license_url=license_url,
+            pigeon_pictures_provider="flickr",
+        )
+    except KeyError as error:
+        logger.error(f"Can't find key in flickr photo f{error}")
+        raise InvalidPigeonPicture
