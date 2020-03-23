@@ -13,6 +13,11 @@ from . import PigeonPicture, PigeonPicturesBaseProvider, InvalidPigeonPicture
 logger = Logger("FlickrPigeonPicturesProvider")
 FLICKR_API_ENDPOINT: str = "https://www.flickr.com/services/rest/"
 
+photo_keys_to_try = list(
+    reversed(["url_t", "url_s", "url_q", "url_c", "url_l", "url_m", "url_n", "url_z",])
+)
+# for photos returned from flickr API, not in relative size order
+
 
 def parse_json_from_response(response):
     raw = response.read()
@@ -36,11 +41,19 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
         photos = parse_json_from_response(response)["photos"]["photo"]
         logger.info(f"Got {len(photos)} photos")
 
+        def ignore_photo_if_invalid(photo):
+            try:
+                return make_pigeon_picture_from_flickr_photo(photo)
+            except InvalidPigeonPicture:
+                return None
+
         pigeon_pictures: List[PigeonPicture] = [
-            make_pigeon_picture_from_flickr_photo(photo) for photo in photos
+            ignore_photo_if_invalid(photo) for photo in photos
         ]
 
-        print(pigeon_pictures)
+        pigeon_pictures = [
+            picture for picture in pigeon_pictures if picture is not None
+        ]
 
         return pigeon_pictures
 
@@ -72,7 +85,7 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
             "nojsoncallback": "1",
             "license": licenses,
             "public_photos": 1,
-            "extras": "owner_name,license,media,url_l,url_m",
+            "extras": "owner_name,license,media," + ",".join(photo_keys_to_try),
             "per_page": 20,
             "tag_mode": "any",
             "tags": "pigeon,pigeons",
@@ -120,16 +133,16 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
 
 def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
     try:
-        print("PHOT", photo)
-
-        photo_keys_to_try = ["url_l", "url_m"]
-
+        photo_url = None
         for photo_key in photo_keys_to_try:
             try:
                 photo_url = photo[photo_key]
                 break
             except KeyError:
                 pass
+
+        if photo_url is None:
+            raise InvalidPigeonPicture("No photo URL found for flickr photo")
 
         author = photo["ownername"]
         license = "TBD"
