@@ -26,7 +26,7 @@ ADJECTIVES = (
 )
 
 
-def generate_pigeon_search_term():
+def generate_pigeon_search_term() -> str:
     """Returns a random pigeon search term"""
     pigeon_term = "{} {}".format(choice(ADJECTIVES), choice(NOUNS)).strip()
     return pigeon_term

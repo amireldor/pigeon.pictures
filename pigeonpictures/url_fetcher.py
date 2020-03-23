@@ -23,6 +23,7 @@ class URLFetcher:
         print("...fetch URLs one day>")
 
 
+# TODO: either move to `pigeonpictures.providers` or delete altogether
 class GoogleCustomSearchFetcher:
     """Use the Google Custom Search 'something' (CSE) to find nice images"""
 

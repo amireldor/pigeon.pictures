@@ -17,10 +17,4 @@ SEARCH_DAYS_TIMEFRAME = 180
 GOOGLE_CSE_ID = getenv("GOOGLE_CSE_ID")
 GOOGLE_API_KEY = getenv("GOOGLE_API_KEY")
 S3_BUCKET_NAME = getenv("S3_BUCKET_NAME")
-
-if GOOGLE_API_KEY is None or GOOGLE_API_KEY is None:
-    logging.error(
-        "Please provide environment variables GOOGLE_CSE_ID, GOOGLE_API_KEY for fetching pigeon pictures"
-    )
-
-    exit(1)
+FLICKR_API_KEY = getenv("FLICKR_API_KEY")
