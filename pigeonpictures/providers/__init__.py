@@ -18,3 +18,7 @@ class PigeonPicturesBaseProvider(ABC):
 
 class InvalidPigeonPicture(Exception):
     pass
+
+
+# for exports
+from .flickr import FlickrPigeonPicturesProvider

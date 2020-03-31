@@ -20,7 +20,7 @@ class URLFetcher:
 
     def fetch_urls(self):
         """Damned this pylint thing making me write docstrings everywhere"""
-        print("...fetch URLs one day>")
+        print("...fetch URLs one day")
 
 
 # TODO: either move to `pigeonpictures.providers` or delete altogether

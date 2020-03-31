@@ -3,7 +3,9 @@ Pigeon Pictures - https://pigeon.pictures
   - a site with pictures of pigeons that change every X minutes
 """
 import logging
-from pigeonpictures import GoogleCustomSearchFetcher, Jinja2HTMLWriter
+from pprint import pprint
+from pigeonpictures import Jinja2HTMLWriter
+from pigeonpictures.providers import FlickrPigeonPicturesProvider
 from pigeonpictures import settings
 
 
@@ -12,7 +14,7 @@ def run():
     Hopefully fetch pigeon pictures' URLs and spit them into an HTML."""
     setup_logger()
     logging.info("Hello from Pigeon Pictures!")
-    do_pigeon_pictures_magic()
+    run()
     logging.info("Goodbye.")
 
 
@@ -25,16 +27,17 @@ def setup_logger():
     )
 
 
-def do_pigeon_pictures_magic():
+def run():
     """By "magic", I mean doing what's this all about. Fetching pigeon URLs
     and writing them nicely to an HTML."""
     pigeon_urls = fetch_urls()
-    write_file(pigeon_urls)
+    pprint(pigeon_urls)
+    # write_file(pigeon_urls)
 
 
 def fetch_urls():
-    fetcher = GoogleCustomSearchFetcher(settings.GOOGLE_CSE_ID, settings.GOOGLE_API_KEY)
-    pigeon_urls = fetcher.fetch_urls()
+    fetcher = FlickrPigeonPicturesProvider()
+    pigeon_urls = fetcher.get_pigeon_pictures()
     return pigeon_urls
 
 
