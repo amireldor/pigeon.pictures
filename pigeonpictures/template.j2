@@ -2,7 +2,7 @@
 <!doctype html><title>Pigeon Pictures</title><meta charset="utf-8">
 <style>
 body {
-    background: url({{ image_links[0] }});
+    background: url({{ pigeon_pictures[0].picture_url }});
     background-size: cover;
     text-align: center;
     margin: 0;
@@ -49,10 +49,13 @@ img {
 const nextUpdateTime = new Date("{{ next_update_isoformat }}");
 {{ javascript_snippet }}
 </script>
-<div id="message">New pigeions in: <span id="countdown">calculating...</span></div>
-{% for link in image_links %}
-<img alt="pigeon picture" src="{{ link }}">
+
+<div id="message">New pigeons in: <span id="countdown">calculating...</span></div>
+
+{% for picture in pigeon_pictures %}
+<img alt="pigeon picture" src="{{ picture.picture_url }}">
 {% endfor %}
+
 <div>
 <div class="fb-like" data-href="https://www.facebook.com/pigeon.pictures.website/" data-width="400" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>
 <br><small>privacy policy - we (me?) only use google analytics to see if anyone actually enters this site</small>

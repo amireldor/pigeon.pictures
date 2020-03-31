@@ -32,7 +32,7 @@ def run_pigeon_pictures_logic():
     nicely to an HTML."""
     pigeon_urls = fetch_urls()
     pprint(pigeon_urls)
-    # write_file(pigeon_urls)
+    write_file(pigeon_urls)
 
 
 def fetch_urls():
