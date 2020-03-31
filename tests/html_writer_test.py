@@ -22,6 +22,6 @@ def test_isotime_rendered_in_jinja_html():
     )
     html = jinja_writer.render(["https://http.cat/404"])
     regex = re.compile(
-        'new Date\("\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\+\d\d:\d\d"\)'
+        'new Date\\("\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\+\d\d:\d\d"\\)'
     )  # naive regex, will do
     assert regex.search(html) is not None
