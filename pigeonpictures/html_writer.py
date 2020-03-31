@@ -1,10 +1,12 @@
 """Writing the HTML with the pigeons' URLs is important. That's what this
 thing does."""
-# import pystache  # dropped
-from abc import ABC, abstractmethod
 import logging
 import jinja2
+from abc import ABC, abstractmethod
+from typing import List
 from datetime import datetime, timedelta, timezone
+
+from pigeonpictures.providers import PigeonPicture
 
 
 def calculate_next_update_time(
@@ -66,14 +68,16 @@ class Jinja2HTMLWriter(HTMLWriter):
             logging.warning("JavaScript snippet not found! %s", exception)
             return ""
 
-    def write(self, filename, urls):
-        logging.info('Writing %d URLs to HTML file "%s"', len(urls), filename)
+    def write(self, filename, pigeon_pictures: List[PigeonPicture]):
+        logging.info(
+            'Writing %d URLs to HTML file "%s"', len(pigeon_pictures), filename
+        )
         with open(filename, "w") as file_to_write:
-            file_to_write.write(self.render(urls))
+            file_to_write.write(self.render(pigeon_pictures))
 
-    def render(self, urls):
+    def render(self, pigeon_pictures):
         return self.template.render(
-            image_links=urls,
+            pigeon_pictures=pigeon_pictures,
             javascript_snippet=self.javascript_snippet,
             next_update_isoformat=self.next_update_time_isoformat,
         )
