@@ -41,4 +41,6 @@ This is Python 3 stuff, so do the `pip install -e .` magic to develop.
 Tests
 -----
 
-pytest
+`pytest`
+
+To run manually, do `python -m pigeonpictures`
