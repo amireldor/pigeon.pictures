@@ -1,6 +1,6 @@
 """
 Pigeon Pictures - https://pigeon.pictures
-  - a site with pictures of pigeons that change every X minutes
+  - a site with pictures of pigeons that change every 30 minutes
 """
 import logging
 from pprint import pprint
@@ -9,12 +9,12 @@ from pigeonpictures.providers import FlickrPigeonPicturesProvider
 from pigeonpictures import settings
 
 
-def run():
+def main():
     """Main entry point of the program. I don't know what it will do.
     Hopefully fetch pigeon pictures' URLs and spit them into an HTML."""
     setup_logger()
     logging.info("Hello from Pigeon Pictures!")
-    run()
+    run_pigeon_pictures_logic()
     logging.info("Goodbye.")
 
 
@@ -27,9 +27,9 @@ def setup_logger():
     )
 
 
-def run():
-    """By "magic", I mean doing what's this all about. Fetching pigeon URLs
-    and writing them nicely to an HTML."""
+def run_pigeon_pictures_logic():
+    """Doing what's this all about. Fetching pigeon URLs and writing them
+    nicely to an HTML."""
     pigeon_urls = fetch_urls()
     pprint(pigeon_urls)
     # write_file(pigeon_urls)
@@ -51,4 +51,4 @@ def create_writer():
 
 
 if __name__ == "__main__":
-    run()
+    main()

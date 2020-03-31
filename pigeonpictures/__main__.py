@@ -1,3 +1,3 @@
-from pigeonpictures.main import run
+from pigeonpictures.main import main
 
-run()
+main()
