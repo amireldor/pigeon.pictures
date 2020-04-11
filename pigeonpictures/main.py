@@ -3,7 +3,6 @@ Pigeon Pictures - https://pigeon.pictures
   - a site with pictures of pigeons that change every 30 minutes
 """
 import logging
-from pprint import pprint
 from pigeonpictures import Jinja2HTMLWriter
 from pigeonpictures.providers import FlickrPigeonPicturesProvider
 from pigeonpictures import settings
@@ -31,7 +30,6 @@ def run_pigeon_pictures_logic():
     """Doing what's this all about. Fetching pigeon URLs and writing them
     nicely to an HTML."""
     pigeon_urls = fetch_urls()
-    pprint(pigeon_urls)
     write_file(pigeon_urls)
 
 

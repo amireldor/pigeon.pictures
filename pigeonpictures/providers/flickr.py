@@ -1,16 +1,15 @@
 import json
+import logging
 from typing import List
 from urllib.request import urlopen
 from urllib.parse import quote
 from urllib.error import URLError, HTTPError
-from logging import Logger
 from random import randint
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from pigeonpictures.settings import FLICKR_API_KEY
 from . import PigeonPicture, PigeonPicturesBaseProvider, InvalidPigeonPicture
 
-logger = Logger("FlickrPigeonPicturesProvider")
 FLICKR_API_ENDPOINT: str = "https://www.flickr.com/services/rest/"
 
 photo_keys_to_try = list(
@@ -22,7 +21,7 @@ photo_keys_to_try = list(
 def parse_json_from_response(response):
     raw = response.read()
     as_string = raw.decode("utf-8")
-    logger.info("Attempt to read JSON from response")
+    logging.info("Attempt to read JSON from response")
     return json.loads(as_string)
 
 
@@ -30,16 +29,26 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
     def __init__(self):
         if FLICKR_API_KEY is None:
             message = "No FLICKR_API_KEY but trying to use the flickr provider! Define a FLICKR_API_KEY environment variable!"
-            logger.error(message)
+            logging.error(message)
             raise RuntimeError(message)
 
     def get_pigeon_pictures(self) -> List[PigeonPicture]:
         url = self.build_search_url()
-        logger.info(f"Opening URL: {url}")
-        response = urlopen(url, timeout=3)
+        logging.info(f"Opening URL to find out how many pages of pigeons there are: {url}")
+        response = urlopen(url, timeout=10)
 
-        photos = parse_json_from_response(response)["photos"]["photo"]
-        logger.info(f"Got {len(photos)} photos")
+        parsed_response = parse_json_from_response(response)
+        pages = parsed_response["photos"]["pages"]
+
+        page_we_want = randint(1, min(pages, 300))  # I think flickr got bugs with high page numbers returning the same results
+        url = self.build_search_url(page_we_want)
+        logging.info(f"Opening URL with page {page_we_want}: {url}")
+        response = urlopen(url, timeout=10)
+
+        parsed_response = parse_json_from_response(response)
+        photos = parsed_response["photos"]["photo"]
+
+        logging.info(f"Got {len(photos)} photos")
 
         def ignore_photo_if_invalid(photo):
             try:
@@ -58,10 +67,9 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
         return pigeon_pictures
 
     @staticmethod
-    def build_search_url() -> str:
+    def build_search_url(page: int = 1) -> str:
         method = "flickr.photos.search"
         public_photos = 1  # flickr 'enum'
-        page = 1
         licenses = "10,9,6,5,4,3,2,1"
         # <licenses>
         #   <license id="0" name="All Rights Reserved" url="" />
@@ -89,6 +97,7 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
             "per_page": 20,
             "tag_mode": "any",
             "tags": "pigeon,pigeons",
+            "page": str(page),
         }
         query_string = "&".join(f"{key}={value}" for key, value in params.items())
         return f"{FLICKR_API_ENDPOINT}?{query_string}"
@@ -113,7 +122,7 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
     #     try:
     #         return enricher.get_photo_info(photo_id)
     #     except (URLError, HTTPError) as error:
-    #         logger.error(f"Error while enriching photo_info: {error}")
+    #         logging.error(f"Error while enriching photo_info: {error}")
     #         print(error)
 
 
@@ -160,7 +169,7 @@ def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
             pigeon_pictures_provider="flickr",
         )
     except KeyError as error:
-        logger.error(f"Can't find key in flickr photo f{error}")
+        logging.error(f"Can't find key in flickr photo f{error}")
         raise InvalidPigeonPicture
 
 def make_flickr_author_url(owner_id: str):
