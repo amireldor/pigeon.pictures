@@ -3,8 +3,10 @@ from typing import NamedTuple, List
 
 
 class PigeonPicture(NamedTuple):
-    picture_url: str
+    picture_url: str  # the url to the image itself
+    picture_page_url: str  # the page of the picture, if exists
     author: str
+    author_url: str
     pigeon_pictures_provider: str
     license: str
     license_url: str

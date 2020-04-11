@@ -24,9 +24,17 @@ img {
     font-weight: bold;
     animation: blink 1s linear infinite;
 }
+#flickr-note {
+  color: red;
+  background: white;
+}
 @keyframes blink {
-    from { opacity: 0 }
-    to { opacity: 1 }
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+.pigeon-picture {
+  display: inline-flex;
+  flex-direction: column;
 }
 </style>
 <div id="fb-root"></div>
@@ -50,10 +58,15 @@ const nextUpdateTime = new Date("{{ next_update_isoformat }}");
 {{ javascript_snippet }}
 </script>
 
-<div id="message">New pigeons in: <span id="countdown">calculating...</span></div>
+<div id="message">New <strong>pigeons</strong> in: <span id="countdown">calculating...</span></div>
+<div id="flickr-note">flickr wants me to write this: "This product uses the Flickr API but is not endorsed or certified by SmugMug, Inc."</div>
 
 {% for picture in pigeon_pictures %}
-<img alt="pigeon picture" src="{{ picture.picture_url }}">
+<div class="pigeon-picture">
+<img alt="image" src="{{ picture.picture_url }}">
+<div>Pigeon Picture by <a href="{{ picture.author_url }}" class="author">{{ picture.author }}</a></div>
+<div class="link-to-source">Source: <a href="{{ picture.picture_page_url }}">{{ picture.picture_page_url }}</a></div>
+</div>
 {% endfor %}
 
 <div>

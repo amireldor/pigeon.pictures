@@ -145,12 +145,16 @@ def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
             raise InvalidPigeonPicture("No photo URL found for flickr photo")
 
         author = photo["ownername"]
+        author_url = make_flickr_author_url(photo["owner"])
+        picture_page_url = make_flickr_picture_page_url(photo["owner"], photo["id"])
         license = "TBD"
         license_url = "TBD"
 
         return PigeonPicture(
             picture_url=photo_url,
+            picture_page_url=picture_page_url,
             author=author,
+            author_url=author_url,
             license=license,
             license_url=license_url,
             pigeon_pictures_provider="flickr",
@@ -158,3 +162,9 @@ def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
     except KeyError as error:
         logger.error(f"Can't find key in flickr photo f{error}")
         raise InvalidPigeonPicture
+
+def make_flickr_author_url(owner_id: str):
+    return f"https://www.flickr.com/people/{owner_id}/"
+
+def make_flickr_picture_page_url(owner_id: str, photo_id: str):
+    return f"https://www.flickr.com/photos/{owner_id}/{photo_id}/"
