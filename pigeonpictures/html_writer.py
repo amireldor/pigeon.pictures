@@ -10,7 +10,7 @@ from pigeonpictures.providers import PigeonPicture
 
 
 def calculate_next_update_time(
-    now: datetime = datetime.now(timezone.utc),
+        now: datetime = datetime.now(timezone.utc) + timedelta(minutes=3),  # HACK that might not work: add a few minutes as a hack for if the lambda clock has not yet passed the half hour
     update_interval: timedelta = timedelta(minutes=30),
 ) -> datetime:
     minutes = now.minute
