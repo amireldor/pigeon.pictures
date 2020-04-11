@@ -40,7 +40,7 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
         parsed_response = parse_json_from_response(response)
         pages = parsed_response["photos"]["pages"]
 
-        page_we_want = randint(1, min(pages, 300))  # I think flickr got bugs with high page numbers returning the same results
+        page_we_want = randint(1, min(pages, 200))  # I think flickr got bugs with high page numbers returning the same results
         url = self.build_search_url(page_we_want)
         logging.info(f"Opening URL with page {page_we_want}: {url}")
         response = urlopen(url, timeout=10)
