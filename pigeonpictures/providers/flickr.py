@@ -4,18 +4,17 @@ from typing import List
 from urllib.request import urlopen
 from urllib.parse import quote
 from urllib.error import URLError, HTTPError
-from random import randint
+from random import randint, shuffle
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from copy import copy
 
 from pigeonpictures.settings import FLICKR_API_KEY
 from . import PigeonPicture, PigeonPicturesBaseProvider, InvalidPigeonPicture
 
 FLICKR_API_ENDPOINT: str = "https://www.flickr.com/services/rest/"
 
-photo_keys_to_try = list(
-    reversed(["url_t", "url_s", "url_q", "url_c", "url_l", "url_m", "url_n", "url_z",])
-)
-# for photos returned from flickr API, not in relative size order
+# for photos returned from flickr API, not in relative size order, you should randomize this every time for best results
+photo_keys_to_try = ["url_t", "url_s", "url_q", "url_c", "url_l", "url_m", "url_n", "url_z",]
 
 
 def parse_json_from_response(response):
@@ -105,7 +104,9 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
 def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
     try:
         photo_url = None
-        for photo_key in photo_keys_to_try:
+        photos_key_sizes_to_try = copy(photo_keys_to_try)
+        shuffle(photos_key_sizes_to_try)
+        for photo_key in photos_key_sizes_to_try:
             try:
                 photo_url = photo[photo_key]
                 break
