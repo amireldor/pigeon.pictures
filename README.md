@@ -16,7 +16,7 @@ How to do things:
 Define environment variables:
 
  - `FLICKR_API_KEY`
- - `S3_BUCKET_NAME`
+ - `S3_BUCKET_NAME` (defaults to `pigeon.pictures`)
 
 To deploy, you need to use Terraform first (see stuff in "/terraform" folder)
 and then you need to run `sls deploy` (installed via setup.py). To update use `sls deploy` again, I think.  You can manually invoke things with `sls invoke -f pigeons`.
