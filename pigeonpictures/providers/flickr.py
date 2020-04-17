@@ -102,44 +102,6 @@ class FlickrPigeonPicturesProvider(PigeonPicturesBaseProvider):
         query_string = "&".join(f"{key}={value}" for key, value in params.items())
         return f"{FLICKR_API_ENDPOINT}?{query_string}"
 
-    # def enrich_photos(self, photos):
-    #     photo_ids_to_photos = {photo["id"]: photo for photo in photos}
-    #     with ThreadPoolExecutor(max_workers=4) as executor:
-    #         futures_to_photo_id = {
-    #             executor.submit(self.call_enricher, photo_id): photo_id
-    #             for photo_id in photo_ids_to_photos.keys()
-    #         }
-
-    #         for future in as_completed(futures_to_photo_id):
-    #             photo_id = futures_to_photo_id[future]
-    #             photo_info = future.result()
-    #             photo_ids_to_photos[photo_id]["photo_info"] = photo_info
-
-    #     return photo_ids_to_photos.values()
-
-    # def call_enricher(self, photo_id):
-    #     enricher = FlickrPhotoEnricher()
-    #     try:
-    #         return enricher.get_photo_info(photo_id)
-    #     except (URLError, HTTPError) as error:
-    #         logging.error(f"Error while enriching photo_info: {error}")
-    #         print(error)
-
-
-# class FlickrPhotoEnricher:
-#     def get_photo_info(self, photo_id):
-#         url = self.build_photo_info_url(photo_id)
-#         response = urlopen(url, timeout=3)
-#         as_json = parse_json_from_response(response)
-#         photo_info = as_json["photo"]
-#         return photo_info
-
-#     def build_photo_info_url(self, photo_id) -> str:
-#         method = "flickr.photos.getInfo"
-#         params = f"api_key={FLICKR_API_KEY}&method={method}&photo_id={photo_id}&format=json&nojsoncallback=1"
-#         return f"{FLICKR_API_ENDPOINT}?{params}"
-
-
 def make_pigeon_picture_from_flickr_photo(photo) -> PigeonPicture:
     try:
         photo_url = None
