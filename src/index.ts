@@ -30,7 +30,7 @@ while (pickedIndices.size < Math.min(20, hits.length)) {
 
 const pickedImages = Array.from(pickedIndices).map((index) => hits[index]);
 
-console.log("Downloading images...");
+console.log(`Downloading ${pickedImages.length} images...`);
 const downloadPromises = pickedImages.map(async (image) =>
   Bun.write(
     `output/downloads/${image.id.toString()}.jpg`,

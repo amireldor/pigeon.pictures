@@ -16,9 +16,6 @@
     "dev": "bun run --watch src/index.ts",
     "format": "prettier --write src/"
   },
-  "dependencies": {
-    "dotenv": "^16.4.5"
-  },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write src/"
   }
