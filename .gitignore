@@ -1,2 +1,4 @@
 node_modules/
 .env.local
+output/downloads/*.jpg
+output/index.html

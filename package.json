@@ -11,8 +11,9 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
+    "start": "bun run src/index.ts",
     "dev": "bun run --watch src/index.ts",
-    "prepare": "husky"
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "dotenv": "^16.4.5"
