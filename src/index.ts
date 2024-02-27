@@ -46,7 +46,12 @@ Bun.write(
   "output/index.html",
   template.replace(
     "%%%PIGEONS%%%",
-    pickedImages.map((image, index) => `<a href="${image.pageURL}"><img src="downloads/${image.id}.jpg" alt="pigeon picture #${index+1}"></a>`).join("\n"),
+    pickedImages
+      .map(
+        (image, index) =>
+          `<a href="${image.pageURL}"><img src="downloads/${image.id}.jpg" alt="pigeon picture #${index + 1}"></a>`,
+      )
+      .join("\n"),
   ),
 );
 
