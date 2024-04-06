@@ -1,58 +1,47 @@
-import { fetchImages, type PixabayImage } from "./services/pixabay";
-import { generatePigeonSearchTerm } from "./services/term-generator";
+import { PixabayPictureFetcher } from "./services/pixabay";
+import { addHour } from "@formkit/tempo";
 
-console.log("Pigeon Pictures!");
+const fetcher = new PixabayPictureFetcher();
 
-const searchTerms: [string, number][] = [
-  [generatePigeonSearchTerm(), Math.ceil(Math.random() * 3)],
-  [generatePigeonSearchTerm(), Math.ceil(Math.random() * 3)],
-  [generatePigeonSearchTerm(), Math.ceil(Math.random() * 3)],
-];
+const images = await fetcher.fetchImages();
 
-searchTerms.forEach(([term, page]) => {
-  console.log(`Searching for term: "${term}" pn page ${page}...`);
-});
-
-const fetchPromises = searchTerms.map(([term, page]) =>
-  fetchImages(term, page),
-);
-const responses = await Promise.all(fetchPromises);
-const hits = responses.reduce(
-  (acc, response) => acc.concat(...response.hits),
-  [] as PixabayImage[],
-);
-console.log(`Got ${hits.length} hits.`);
-
-const pickedIndices = new Set<number>();
-while (pickedIndices.size < Math.min(20, hits.length)) {
-  pickedIndices.add(Math.floor(Math.random() * hits.length));
-}
-
-const pickedImages = Array.from(pickedIndices).map((index) => hits[index]);
-
-console.log(`Downloading ${pickedImages.length} images...`);
-const downloadPromises = pickedImages.map(async (image) =>
+console.log(`Downloading ${images.length} images...`);
+const downloadPromises = images.map(async (image) =>
   Bun.write(
     `output/downloads/${image.id.toString()}.jpg`,
-    await fetch(image.largeImageURL),
-  ),
+    await fetch(image.imageURL)
+  )
 );
+
 await Promise.all(downloadPromises);
 console.log("Writing HTML...");
 
 const template = await Bun.file("src/template.html").text();
+const now = new Date();
+let nextUpdateDate = new Date();
+const minutes = now.getMinutes();
+if (minutes < 30) {
+  nextUpdateDate.setMinutes(30);
+} else {
+  nextUpdateDate.setMinutes(0);
+  nextUpdateDate = addHour(nextUpdateDate, 1);
+}
+
+console.log(now, nextUpdateDate);
 
 Bun.write(
   "output/index.html",
-  template.replace(
-    "%%%PIGEONS%%%",
-    pickedImages
-      .map(
-        (image, index) =>
-          `<a href="${image.pageURL}"><img src="downloads/${image.id}.jpg" alt="pigeon picture #${index + 1}"></a>`,
-      )
-      .join("\n"),
-  ),
+  template
+    .replace(
+      "%%%PIGEONS%%%",
+      images
+        .map(
+          (image, index) =>
+            `<a href="${image.pageURL}"><img src="downloads/${image.id}.jpg" alt="pigeon picture #${index + 1}"></a>`
+        )
+        .join("\n")
+    )
+    .replace("%%%NEW_PIGEONS_TIME%%%", nextUpdateDate.toISOString())
 );
 
 console.log("Done.");

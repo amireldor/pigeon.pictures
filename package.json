@@ -18,5 +18,8 @@
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write src/"
+  },
+  "dependencies": {
+    "@formkit/tempo": "^0.0.19"
   }
 }

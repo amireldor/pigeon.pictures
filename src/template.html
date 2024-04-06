@@ -1,83 +1,86 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pigeon Pictures</title>
-    <style>
-      body {
-        text-align: center;
-        font-family: sans-serif;
-        font-size: 24pt;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pigeon Pictures</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 24pt;
+    }
+
+    .pigeons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      img {
+        margin: 10px;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
       }
+    }
 
-      .pigeons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+    .interesting {
+      color: red;
+    }
+  </style>
+</head>
 
-        img {
-          margin: 10px;
-          width: 300px;
-          height: 300px;
-          object-fit: cover;
-        }
-      }
-    </style>
-  </head>
+<body>
+  <h1>Pigeon Pictures</h1>
+  <p id="countdown"></p>
+  <div class="pigeons">%%%PIGEONS%%%</div>
+  <p>
+    The Pigeon Pictures are coming from the
+    <a href="https://pixabay.com" target="_blank"><img src="pixabay-logo.svg" height="30" alt="Pixabay.com" /></a>
+    API
+  </p>
 
-  <body>
-    <h1>Pigeon Pictures</h1>
-    <div class="pigeons">%%%PIGEONS%%%</div>
-    <p>New Pigeon Pictures in 24 minutes and 13 seconds!</p>
-    <p>
-      Pigeon Pictures from
-      <a href="https://pixabay.com" target="_blank"
-        ><img src="pixabay-logo.svg" height="30" alt="Pixabay.com"
-      /></a>
-    </p>
-
-    <div>
-      <div
-        class="fb-like fb_iframe_widget"
-        data-href="https://www.facebook.com/pigeon.pictures.website/"
-        data-width="400"
-        data-layout="button_count"
-        data-action="like"
-        data-size="large"
-        data-show-faces="true"
-        data-share="false"
-        fb-xfbml-state="rendered"
-        fb-iframe-plugin-query="action=like&amp;app_id=1667292343531860&amp;container_width=1519&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpigeon.pictures.website%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=true&amp;size=large&amp;width=400"
-      >
-        <span style="vertical-align: bottom; width: 108px; height: 28px"
-          ><iframe
-            name="f4f3608e7b9d6d170"
-            width="400px"
-            height="1000px"
-            data-testid="fb:like Facebook Social Plugin"
-            title="fb:like Facebook Social Plugin"
-            frameborder="0"
-            allowtransparency="true"
-            allowfullscreen="true"
-            scrolling="no"
-            allow="encrypted-media"
-            src="https://www.facebook.com/v3.0/plugins/like.php?action=like&amp;app_id=1667292343531860&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfcff5cde1102d66cb%26domain%3Dpigeon.pictures%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Fpigeon.pictures%252Ffb2c13305268966d5%26relation%3Dparent.parent&amp;container_width=1519&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpigeon.pictures.website%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=true&amp;size=large&amp;width=400"
-            style="
+  <div>
+    <div class="fb-like fb_iframe_widget" data-href="https://www.facebook.com/pigeon.pictures.website/" data-width="400"
+      data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="false"
+      fb-xfbml-state="rendered"
+      fb-iframe-plugin-query="action=like&amp;app_id=1667292343531860&amp;container_width=1519&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpigeon.pictures.website%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=true&amp;size=large&amp;width=400">
+      <span style="vertical-align: bottom; width: 108px; height: 28px"><iframe name="f4f3608e7b9d6d170" width="400px"
+          height="1000px" data-testid="fb:like Facebook Social Plugin" title="fb:like Facebook Social Plugin"
+          frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media"
+          src="https://www.facebook.com/v3.0/plugins/like.php?action=like&amp;app_id=1667292343531860&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfcff5cde1102d66cb%26domain%3Dpigeon.pictures%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Fpigeon.pictures%252Ffb2c13305268966d5%26relation%3Dparent.parent&amp;container_width=1519&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpigeon.pictures.website%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=true&amp;size=large&amp;width=400"
+          style="
               border: none;
               visibility: visible;
               width: 108px;
               height: 28px;
-            "
-            class=""
-          ></iframe
-        ></span>
-      </div>
-      <small
-        >privacy policy - we (me?) only use google analytics to see if anyone
-        actually enters this site</small
-      >
+            " class=""></iframe></span>
     </div>
-  </body>
-  <html></html>
+    <small>privacy policy - we (me?) only use google analytics to see if anyone
+      actually enters this site</small>
+  </div>
+  <script>
+    const newPigeonsTime = new Date("%%%NEW_PIGEONS_TIME%%%");
+    function makeCountdownText({ minutes, seconds }) {
+      return `New Pigeon Pictures in <span class='interesting'>${minutes} minutes and ${seconds} seconds!</span>`
+    }
+    let intervalId;
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = newPigeonsTime - now;
+      if (diff <= 0) {
+        clearInterval(intervalId);
+        document.getElementById("countdown").innerHTML = "New Pigeon Pictures arrive soon, refresh the page!";
+      } else {
+        const minutes = Math.floor(diff / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        document.getElementById("countdown").innerHTML = makeCountdownText({ minutes, seconds });
+      }
+    }
+    updateCountdown();
+    intervalId = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+
 </html>
