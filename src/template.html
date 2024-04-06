@@ -27,6 +27,20 @@
 
     .interesting {
       color: red;
+      animation-name: 'interesting';
+      animation-duration: 1s;
+      animation-direction: alternate;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes interesting {
+      0% {
+        color: red;
+      }
+
+      100% {
+        color: blue;
+      }
     }
   </style>
 </head>
@@ -62,20 +76,20 @@
   </div>
   <script>
     const newPigeonsTime = new Date("%%%NEW_PIGEONS_TIME%%%");
-    function makeCountdownText({ minutes, seconds }) {
-      return `New Pigeon Pictures in <span class='interesting'>${minutes} minutes and ${seconds} seconds!</span>`
-    }
+    const countwodnElement = document.getElementById("countdown");
+    countwodnElement.innerHTML = "New Pigeon Pictures in <span class='interesting'>calculating...</span>";
+    const timeElement = document.getElementById("countdown").querySelector('.interesting');
     let intervalId;
     const updateCountdown = () => {
       const now = new Date();
       const diff = newPigeonsTime - now;
       if (diff <= 0) {
         clearInterval(intervalId);
-        document.getElementById("countdown").innerHTML = "New Pigeon Pictures arrive soon, refresh the page!";
+        countwodnElement.innerHTML = "New Pigeon Pictures arrive soon, <span class='interesting'>refresh the page!</span>";
       } else {
         const minutes = Math.floor(diff / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
-        document.getElementById("countdown").innerHTML = makeCountdownText({ minutes, seconds });
+        timeElement.innerHTML = `${minutes} minutes and ${seconds} seconds`;
       }
     }
     updateCountdown();

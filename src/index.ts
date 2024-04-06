@@ -26,6 +26,8 @@ if (minutes < 30) {
   nextUpdateDate.setMinutes(0);
   nextUpdateDate = addHour(nextUpdateDate, 1);
 }
+nextUpdateDate.setSeconds(0);
+nextUpdateDate.setMilliseconds(0);
 
 console.log(now, nextUpdateDate);
 
