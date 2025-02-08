@@ -1,11 +1,11 @@
 {
-	"name": "pigeon-pictures-fetch-lambda",
+	"name": "pigeon-pictures-delete-lambda",
 	"version": "1.0.0",
 	"private": true,
 	"type": "module",
-	"main": "pigeons.mjs",
+	"main": "delete.mjs",
 	"scripts": {
-		"start": "node pigeons.mjs"
+		"start": "node delete.mjs"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.500.0",

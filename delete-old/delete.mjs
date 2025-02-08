@@ -4,7 +4,7 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 
-const s3 = new S3Client({ region: process.env.AWS_REGION });
+const s3 = new S3Client({ region: process.env.BUCKET_AWS_REGION });
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const FOLDER_PREFIX = "pigeons/";
 const SIX_HOURS_IN_MS = 6 * 60 * 60 * 1000;

@@ -1,10 +1,10 @@
 # Configuration
 LAMBDA_NAME_FETCH = pigeon-images-fetcher
 LAMBDA_NAME_DELETE = delete-old-pigeon-images
-AWS_REGION = us-east-1
-BUCKET_NAME = $(BUCKET_NAME)
-PIXABAY_API_KEY = $(PIXABAY_API_KEY)
-IAM_ROLE_ARN = $(IAM_ROLE_ARN)
+BUCKET_AWS_REGION = $(shell echo $$BUCKET_AWS_REGION)
+BUCKET_NAME := $(shell echo $$BUCKET_NAME)
+PIXABAY_API_KEY := $(shell echo $$PIXABAY_API_KEY)
+IAM_ROLE_ARN := $(shell echo $$IAM_ROLE_ARN)
 FETCH_DIR = fetch-pigeons
 DELETE_DIR = delete-old
 ZIP_FILE_FETCH = $(FETCH_DIR)/deployment.zip
@@ -15,8 +15,8 @@ RUNTIME = nodejs22.x
 
 # Install dependencies in the respective folders
 install:
-	cd $(FETCH_DIR) && npm install --production
-	cd $(DELETE_DIR) && npm install --production
+	cd $(FETCH_DIR) && npm install --omit=dev
+	cd $(DELETE_DIR) && npm install --omit=dev
 
 # Create deployment package for fetch-pigeons
 package-fetch: install
@@ -35,7 +35,7 @@ deploy-fetch: package-fetch
 	  --timeout 30 \
 	  --memory-size 256 \
 	  --zip-file fileb://$(ZIP_FILE_FETCH) \
-	  --environment Variables="{AWS_REGION='$(AWS_REGION)',BUCKET_NAME='$(BUCKET_NAME)',PIXABAY_API_KEY='$(PIXABAY_API_KEY)'}"
+	  --environment Variables="{BUCKET_AWS_REGION='$(BUCKET_AWS_REGION)',BUCKET_NAME='$(BUCKET_NAME)',PIXABAY_API_KEY='$(PIXABAY_API_KEY)'}"
 
 # Deploy the delete-old Lambda function (first-time deployment)
 deploy-delete: package-delete
@@ -46,7 +46,7 @@ deploy-delete: package-delete
 	  --timeout 30 \
 	  --memory-size 256 \
 	  --zip-file fileb://$(ZIP_FILE_DELETE) \
-	  --environment Variables="{AWS_REGION='$(AWS_REGION)',BUCKET_NAME='$(BUCKET_NAME)'}"
+	  --environment Variables="{BUCKET_AWS_REGION='$(BUCKET_AWS_REGION)',BUCKET_NAME='$(BUCKET_NAME)'}"
 
 # Update existing fetch-pigeons Lambda function code
 update-fetch: package-fetch

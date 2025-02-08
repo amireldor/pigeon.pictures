@@ -1,7 +1,7 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import axios from "axios";
 
-const s3 = new S3Client({ region: process.env.AWS_REGION });
+const s3 = new S3Client({ region: process.env.BUCKET_AWS_REGION });
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY;
 const PIXABAY_API_URL = `https://pixabay.com/api/?key=${PIXABAY_API_KEY}&q=pigeon&image_type=photo&per_page=20`;
