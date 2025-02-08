@@ -1,0 +1,18 @@
+{
+	"name": "pigeon-pictures-lamba",
+	"version": "1.0.0",
+	"description": "AWS Lambda function to fetch pigeon images and upload them to S3",
+	"private": true,
+	"type": "module",
+	"main": "pigeons.mjs",
+	"scripts": {
+		"start": "node pigeons.mjs"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.500.0",
+		"axios": "^1.6.0"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
