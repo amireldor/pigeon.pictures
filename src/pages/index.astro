@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { pigeonRandomizedIds, PERIOD_MS } from "../shared";
+import ProgressBar from "../components/ProgressBar";
+import FacebookLike from "../components/FacebookLike.astro";
+import pixabayLogo from "../assets/pixabay.svg";
+---
+
+<Layout>
+  <div class='page'>
+    <h1 id='title'>Pigeon Pictures</h1>
+    <div>
+      <a href='https://pigeon.pictures'>https://pigeon.pictures</a>
+      <FacebookLike />
+      <a href='https://pixabay.com'
+        ><img src={pixabayLogo.src} alt='Images from Pixabay' width='80' /></a>
+    </div>
+    <p>
+      Pictures of pigeons that change every {PERIOD_MS / (1000 * 60)} minutes
+    </p>
+    <ProgressBar client:only />
+    <div class='pigeon-pictures'>
+      {
+        pigeonRandomizedIds.map((id) => (
+          <img src={`/pigeons/pigeon-${id}.jpg`} alt='Pigeon Picture' />
+        ))
+      }
+    </div>
+    <small id='privacy'>
+      privacy policy - we (me?) only use google analytics to see if anyone
+      actually enters this site
+    </small>
+  </div>
+</Layout>
+
+<style>
+  .page {
+    width: 80vw;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .pigeon-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pigeon-pictures img {
+    max-width: 100vw;
+    height: auto;
+  }
+
+  #privacy {
+    display: block;
+    margin-top: 3rem;
+  }
+
+  a {
+    color: #00f;
+  }
+</style>
