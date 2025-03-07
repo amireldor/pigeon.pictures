@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { pigeonRandomizedIds } from "../shared";
+import ProgressBar from "../components/ProgressBar";
+---
+
+<Layout>
+  <div class='page'>
+    <h1 id='title'>Pigeon Pictures</h1>
+    <small><a href='https://pigeon.pictures'>https://pigeon.pictures</a></small>
+    <p>Pictures of pigeons that change every 30 minutes</p>
+    <ProgressBar client:only />
+    <div class='pigeon-pictures'>
+      {
+        pigeonRandomizedIds.map((id) => (
+          <img
+            src={`https://picsum.photos/${Math.ceil(Math.random() * 800) + 200}/${Math.ceil(Math.random() * 800) + 200}`}
+            alt='Pigeon Picture'
+          />
+        ))
+      }
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page {
+    width: 80vw;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .pigeon-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pigeon-pictures img {
+    max-width: 100vw;
+    height: auto;
+  }
+
+  a {
+    color: #00f;
+  }
+</style>
