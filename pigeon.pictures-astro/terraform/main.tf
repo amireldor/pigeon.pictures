@@ -3,6 +3,28 @@ provider "aws" {
 }
 
 #########################
+# Variable for Pixabay API Key
+#########################
+variable "pixabay_api_key" {
+  type        = string
+  description = "The API key for Pixabay."
+  sensitive   = true
+}
+
+#########################
+# Secrets Manager for PIXABAY_API_KEY
+#########################
+resource "aws_secretsmanager_secret" "pixabay_api_key" {
+  name        = "pigeon-pictures-pixabay-api-key"
+  description = "API key for Pixabay used by the pigeon.pictures website"
+}
+
+resource "aws_secretsmanager_secret_version" "pixabay_api_key_version" {
+  secret_id     = aws_secretsmanager_secret.pixabay_api_key.id
+  secret_string = var.pixabay_api_key
+}
+
+#########################
 # IAM Role for CodeBuild (pigeon.pictures)
 #########################
 resource "aws_iam_role" "pigeon_codebuild_role" {
@@ -27,7 +49,7 @@ resource "aws_iam_policy" "pigeon_codebuild_s3_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid: "AllowS3AccessToPigeonPictures",
+        Sid:    "AllowS3AccessToPigeonPictures",
         Effect: "Allow",
         Action: [
           "s3:PutObject",
@@ -62,12 +84,19 @@ resource "aws_codebuild_project" "pigeon_codebuild_project" {
     image                       = "aws/codebuild/standard:5.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
+
+    # Inject the PIXABAY_API_KEY from Secrets Manager
+    environment_variable {
+      name  = "PIXABAY_API_KEY"
+      value = aws_secretsmanager_secret.pixabay_api_key.arn
+      type  = "SECRETS_MANAGER"
+    }
   }
 
   service_role = aws_iam_role.pigeon_codebuild_role.arn
 
   source {
-    type      = "GITHUB"  # Change this if you use a different source
+    type      = "GITHUB"
     location  = "https://github.com/amireldor/pigeon.pictures"
     buildspec = "buildspec.yml"
   }
