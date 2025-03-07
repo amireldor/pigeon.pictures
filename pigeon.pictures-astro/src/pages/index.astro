@@ -1,25 +1,35 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { pigeonRandomizedIds } from "../shared";
+import { pigeonRandomizedIds, PERIOD_MS } from "../shared";
 import ProgressBar from "../components/ProgressBar";
+import FacebookLike from "../components/FacebookLike.astro";
+import pixabayLogo from "../assets/pixabay.svg";
 ---
 
 <Layout>
   <div class='page'>
     <h1 id='title'>Pigeon Pictures</h1>
-    <small><a href='https://pigeon.pictures'>https://pigeon.pictures</a></small>
-    <p>Pictures of pigeons that change every 30 minutes</p>
+    <div>
+      <a href='https://pigeon.pictures'>https://pigeon.pictures</a>
+      <FacebookLike />
+      <a href='https://pixabay.com'
+        ><img src={pixabayLogo.src} alt='Images from Pixabay' width='80' /></a>
+    </div>
+    <p>
+      Pictures of pigeons that change every {PERIOD_MS / (1000 * 60)} minutes
+    </p>
     <ProgressBar client:only />
     <div class='pigeon-pictures'>
       {
         pigeonRandomizedIds.map((id) => (
-          <img
-            src={`https://picsum.photos/${Math.ceil(Math.random() * 800) + 200}/${Math.ceil(Math.random() * 800) + 200}`}
-            alt='Pigeon Picture'
-          />
+          <img src={`/pigeons/pigeon-${id}.jpg`} alt='Pigeon Picture' />
         ))
       }
     </div>
+    <small id='privacy'>
+      privacy policy - we (me?) only use google analytics to see if anyone
+      actually enters this site
+    </small>
   </div>
 </Layout>
 
@@ -48,6 +58,11 @@ import ProgressBar from "../components/ProgressBar";
   .pigeon-pictures img {
     max-width: 100vw;
     height: auto;
+  }
+
+  #privacy {
+    display: block;
+    margin-top: 3rem;
   }
 
   a {
