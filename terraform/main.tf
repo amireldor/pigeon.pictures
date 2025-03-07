@@ -3,6 +3,11 @@ provider "aws" {
 }
 
 #########################
+# Data Source for Account ID
+#########################
+data "aws_caller_identity" "current" {}
+
+#########################
 # Variable for Pixabay API Key
 #########################
 variable "pixabay_api_key" {
@@ -71,6 +76,56 @@ resource "aws_iam_role_policy_attachment" "pigeon_codebuild_s3_policy_attach" {
   policy_arn = aws_iam_policy.pigeon_codebuild_s3_policy.arn
 }
 
+# Policy for CloudWatch Logs permissions
+resource "aws_iam_policy" "pigeon_codebuild_cloudwatch_policy" {
+  name        = "pigeon-pictures-codebuild-cloudwatch-policy"
+  description = "Allow CodeBuild to create and write CloudWatch Logs for the pigeon.pictures project"
+  policy      = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid:    "AllowCloudWatchLogs",
+        Effect: "Allow",
+        Action: [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Resource: "arn:aws:logs:eu-central-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/pigeon-pictures-codebuild-project*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "pigeon_codebuild_cloudwatch_policy_attach" {
+  role       = aws_iam_role.pigeon_codebuild_role.name
+  policy_arn = aws_iam_policy.pigeon_codebuild_cloudwatch_policy.arn
+}
+
+resource "aws_iam_policy" "pigeon_codebuild_secrets_policy" {
+  name        = "pigeon-pictures-codebuild-secrets-policy"
+  description = "Allow CodeBuild to retrieve secret values from Secrets Manager for PIXABAY_API_KEY"
+  policy      = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid:    "AllowGetSecretValue",
+        Effect: "Allow",
+        Action: [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ],
+        Resource: aws_secretsmanager_secret.pixabay_api_key.arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "pigeon_codebuild_secrets_policy_attach" {
+  role       = aws_iam_role.pigeon_codebuild_role.name
+  policy_arn = aws_iam_policy.pigeon_codebuild_secrets_policy.arn
+}
+
 #############################
 # CodeBuild Project for pigeon.pictures Website
 #############################
@@ -102,10 +157,14 @@ resource "aws_codebuild_project" "pigeon_codebuild_project" {
   }
 
   artifacts {
-    type      = "S3"
-    location  = "pigeon.pictures"
-    packaging = "NONE"  # Files will be copied as-is (e.g., index.html, etc.)
-    path      = ""
+    type                   = "S3"
+    location               = "pigeon.pictures"
+    packaging              = "NONE"
+    path                   = ""
+    name                   = "astro-generated-website"
+    override_artifact_name = true
+    namespace_type         = "NONE"
+    encryption_disabled    = true
   }
 }
 
