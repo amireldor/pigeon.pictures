@@ -205,8 +205,8 @@ resource "aws_iam_role_policy" "pigeon_eventbridge_policy" {
 #########################################
 resource "aws_cloudwatch_event_rule" "pigeon_codebuild_schedule" {
   name                = "pigeon-pictures-codebuild-schedule"
-  description         = "Triggers the pigeon.pictures CodeBuild project every 10 minutes"
-  schedule_expression = "cron(0/10 * * * ? *)"
+  description         = "Triggers the pigeon.pictures CodeBuild project every 60 minutes"
+  schedule_expression = "cron(0/60 * * * ? *)"
 }
 
 #########################################

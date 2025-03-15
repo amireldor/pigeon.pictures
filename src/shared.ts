@@ -1,5 +1,5 @@
 export const PIGEONS_TO_SHOW = 20;
-export const PERIOD_MS = 1000 * 60 * 10;
+export const PERIOD_MS = 1000 * 60 * 60; // 60 minutes
 export const nextPigeonsISO = new Date(new Date().getTime() + PERIOD_MS).toISOString();
 
 export const pigeonRandomizedIds = Array.from(
