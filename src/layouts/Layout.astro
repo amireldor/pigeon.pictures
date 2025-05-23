@@ -34,8 +34,10 @@
       gtag("js", new Date());
       gtag("config", "UA-3934133-8");
     </script>
-    <script src='/timing.js' is:inline fetchpriority='high'></script>
     <slot />
+    <script>
+      window.nextPigeonsISODate = '$$$NEXT_PIGEON_ISODATE$$$';
+    </script>
   </body>
 </html>
 

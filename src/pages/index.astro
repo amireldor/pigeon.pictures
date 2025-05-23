@@ -21,8 +21,8 @@ import pixabayLogo from "../assets/pixabay.svg";
     <ProgressBar client:only />
     <div class='pigeon-pictures'>
       {
-        pigeonRandomizedIds.map((id) => (
-          <img src={`/pigeons/pigeon-${id}.jpg`} alt='Pigeon Picture' />
+        Array.from({ length: pigeonRandomizedIds.length }).fill(undefined).map((_, index) => (
+          <img src={`/pigeons/$$$PIGEON_PLACEHOLDER_${index}$$$`} alt='Pigeon' />
         ))
       }
     </div>

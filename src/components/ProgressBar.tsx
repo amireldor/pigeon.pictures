@@ -8,7 +8,7 @@ const ProgressBar = () => {
   useEffect(() => {
     const updateProgress = () => {
       const current = new Date();
-      const nextPigeons = window.nextPigeons;
+      const nextPigeons = new Date(window.nextPigeonsISODate);
       const periodStart = new Date(nextPigeons.getTime() - window.pigeonPeriod);
 
       const elapsed = current.getTime() - periodStart.getTime();

@@ -4,6 +4,7 @@
     ".astro/types.d.ts",
     "**/*"
   ],
+  "lib": ["ES2022"],
   "exclude": [
     "dist"
   ],

@@ -1,4 +1,4 @@
 interface Window {
-    nextPigeons: Date;
     pigeonPeriod: number;
-} 
+    nextPigeonsISODate: string;
+}
