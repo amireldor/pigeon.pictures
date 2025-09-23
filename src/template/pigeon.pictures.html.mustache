@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pigeon Pictures</title>
+    <meta
+      name="description"
+      content="See some pigeon pictures that change about every hour or so"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        font-family: "Quicksand", sans-serif;
+        text-align: center;
+      }
+
+      #pigeon-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 3rem auto 5rem;
+      }
+
+      .pigeon {
+        width: 100%;
+        max-width: 140px;
+      }
+
+      #pigeon-gallery-container {
+        container-type: inline-size;
+        container-name: pigeon-gallery-container;
+      }
+
+      @container pigeon-gallery-container (min-width: 601px) and (max-width: 900px) {
+        #pigeon-gallery {
+          gap: 0.75rem;
+          width: 90vw;
+        }
+        .pigeon {
+          max-width: 180px;
+        }
+      }
+
+      @container pigeon-gallery-container (min-width: 901px) {
+        #pigeon-gallery {
+          gap: 1rem;
+          width: 80vw;
+        }
+        .pigeon {
+          max-width: 220px;
+        }
+      }
+
+      #privacy {
+        margin-bottom: 1.5rem;
+      }
+    </style>
+  </head>
+
+  <div>
+    <div id="fb-root"></div>
+    <script>
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src =
+          "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=1667292343531860&autoLogAppEvents=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-3934133-8"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-3934133-8");
+    </script>
+    <h1>Pigeon Pictures</h1>
+    <div>
+      <a href="https://pigeon.pictures">https://pigeon.pictures</a>
+      <div
+        class="fb-like"
+        data-href="https://www.facebook.com/pigeon.pictures.website/"
+        data-width="400"
+        data-layout="button_count"
+        data-action="like"
+        data-size="large"
+        data-show-faces="true"
+        data-share="false"
+      ></div>
+      <a href="https://pixabay.com"
+        ><img
+          class="pixabay-logo"
+          src="/pixabay.svg"
+          alt="Images from Pixabay"
+          width="80"
+      /></a>
+    </div>
+    <p>
+      Pictures of pigeons that change every {{ periodTime }} {{ periodScale }}
+    </p>
+    <main id="pigeon-gallery-container">
+      <div id="pigeon-gallery">
+      <img class="pigeon" src="pigeons/00.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/01.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/02.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/03.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/04.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/05.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/06.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/07.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/08.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/09.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/10.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/11.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/12.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/13.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/14.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/15.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/16.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/17.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/18.jpg" alt="pigeon picture" />
+      <img class="pigeon" src="pigeons/19.jpg" alt="pigeon picture" />
+    </div>
+    </main>
+    <small id="privacy">
+      privacy policy - we (me?) only use google analytics to see if anyone
+      actually enters this site
+    </small>
+    <script type="module">
+      const nextUpdate = new Date("{{ nextUpdateISO }}");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "pigeon.pictures",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amireldor/pigeon.pictures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amireldor/pigeon.pictures/issues"
+  },
+  "homepage": "https://github.com/amireldor/pigeon.pictures#readme",
+  "dependencies": {
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

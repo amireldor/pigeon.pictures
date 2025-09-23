@@ -1,5 +1,4 @@
-# build output
-dist/
+node_modules/
 
 # environment variables
 .env
