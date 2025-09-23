@@ -19,6 +19,7 @@
         margin: 0;
         width: 100%;
         height: 100%;
+        color: #303030;
         background: white;
         font-family: "Quicksand", sans-serif;
         text-align: center;
@@ -64,10 +65,122 @@
       #privacy {
         margin-bottom: 1.5rem;
       }
+
+      .time-progress-container {
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        &.calculating {
+          visibility: hidden;
+        }
+      }
+
+      .time-progress-text {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.8rem;
+        font-weight: bold;
+
+        &.complete {
+          animation: blink 0.6s alternate infinite;
+          color: white;
+        }
+      }
+
+      @keyframes blink {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .time-progress {
+        width: 80%;
+        height: 1.2rem;
+        appearance: none;
+        background: #e0e0e0;
+        border-radius: 0.6rem;
+        overflow: hidden;
+        margin: 1rem auto 2rem;
+        display: block;
+      }
+
+      .time-progress::-webkit-slider-runnable-track {
+        height: 1.2rem;
+        border-radius: 0.6rem;
+      }
+
+      .time-progress::-webkit-slider-thumb {
+        appearance: none;
+        width: 0;
+        height: 1.2rem;
+        box-shadow: -100vw 0 0 100vw #4caf50;
+        border: none;
+      }
+
+      .time-progress:disabled::-webkit-slider-thumb {
+        background: transparent;
+      }
+
+      .time-progress::-moz-range-progress {
+        background-color: #4caf50;
+        border-radius: 0.6rem;
+      }
+
+      .time-progress::-moz-range-track {
+        background-color: #e0e0e0;
+        border-radius: 0.6rem;
+      }
+
+      .time-progress::-ms-fill-lower {
+        background: #4caf50;
+        border-radius: 0.6rem;
+      }
+
+      .time-progress::-ms-fill-upper {
+        background: #e0e0e0;
+        border-radius: 0.6rem;
+      }
+
+      .time-progress:focus {
+        outline: none;
+      }
+
+      .time-progress::-ms-thumb {
+        width: 0;
+        height: 1.2rem;
+        background: transparent;
+        border: none;
+      }
+
+      .time-progress::-webkit-slider-thumb {
+        pointer-events: none;
+      }
+
+      .time-progress::-moz-range-thumb {
+        pointer-events: none;
+        width: 0;
+        height: 1.2rem;
+        background: transparent;
+        border: none;
+      }
+
+      .time-progress::-ms-thumb {
+        pointer-events: none;
+      }
+
+      .time-progress:disabled {
+        opacity: 1;
+      }
     </style>
   </head>
 
-  <div>
+  <body>
     <div id="fb-root"></div>
     <script>
       (function (d, s, id) {
@@ -118,36 +231,103 @@
     <p>
       Pictures of pigeons that change every {{ periodTime }} {{ periodScale }}
     </p>
+    <div class="time-progress-container calculating">
+      <input
+        id="time-remaining"
+        class="time-progress"
+        type="range"
+        min="0"
+        max="100"
+      />
+      <span id="time-remaining-text" class="time-progress-text"
+        >12:42 remaining</span
+      >
+    </div>
     <main id="pigeon-gallery-container">
       <div id="pigeon-gallery">
-      <img class="pigeon" src="pigeons/00.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/01.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/02.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/03.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/04.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/05.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/06.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/07.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/08.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/09.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/10.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/11.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/12.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/13.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/14.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/15.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/16.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/17.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/18.jpg" alt="pigeon picture" />
-      <img class="pigeon" src="pigeons/19.jpg" alt="pigeon picture" />
-    </div>
+        <img class="pigeon" src="pigeons/00.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/01.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/02.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/03.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/04.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/05.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/06.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/07.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/08.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/09.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/10.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/11.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/12.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/13.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/14.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/15.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/16.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/17.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/18.jpg" alt="pigeon picture" />
+        <img class="pigeon" src="pigeons/19.jpg" alt="pigeon picture" />
+      </div>
     </main>
     <small id="privacy">
       privacy policy - we (me?) only use google analytics to see if anyone
       actually enters this site
     </small>
     <script type="module">
-      const nextUpdate = new Date("{{ nextUpdateISO }}");
+      const startTime = new Date("{{ startTimeISO }}");
+      const endTime = new Date("{{ endTimeISO }}");
+
+      function calculatePercent(start, end, current) {
+        return Math.floor(
+          Math.max(0, Math.min(100, ((current - start) / (end - start)) * 100))
+        );
+      }
+
+      const remaining = document.getElementById("time-remaining");
+      const remainingText = document.getElementById("time-remaining-text");
+      const remainingContainer = document.querySelector(
+        ".time-progress-container"
+      );
+
+      function secondsToHMS(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        const display = [m, s];
+        if (h !== "00") {
+          display.unshift(h);
+        }
+        return display
+          .map((v) => v.toString().padStart(2, "0"))
+          .filter((v, i) => v !== "00" || i > 0)
+          .join(":");
+      }
+
+      function tick() {
+        const now = new Date();
+        const percent = calculatePercent(startTime, endTime, now);
+        console.log("aaa percent, now, endTime", { percent, now, endTime });
+
+        remaining.value = percent;
+        if (percent >= 100) {
+          if (intervalId) {
+            clearInterval(intervalId);
+          }
+          remainingText.innerHTML =
+            "New Pigeons Arriving Soon! Refresh, for glory!";
+          remainingText.classList.add("complete");
+        } else {
+          const secondsRemaining = Math.max(0, (endTime - now) / 1000);
+          remainingText.innerHTML = remainingText.innerHTML.replace(
+            /\d+:\d+/,
+            secondsToHMS(secondsRemaining)
+          );
+        }
+      }
+
+      const intervalId = setInterval(tick, 1000);
+
+      tick();
+
+      remainingContainer.classList.remove("calculating");
     </script>
   </body>
 </html>
