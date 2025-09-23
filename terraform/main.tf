@@ -29,6 +29,11 @@ resource "aws_secretsmanager_secret_version" "pixabay_api_key_version" {
   secret_string = var.pixabay_api_key
 }
 
+# The nice bucket
+resource "aws_s3_bucket" "pigeon_pictures_bucket" {
+  bucket = "pigeon.pictures"
+}
+
 #########################
 # IAM Role for CodeBuild (pigeon.pictures)
 #########################
