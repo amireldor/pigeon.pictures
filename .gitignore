@@ -1,4 +1,5 @@
 node_modules/
+tmp/
 
 # environment variables
 .env
