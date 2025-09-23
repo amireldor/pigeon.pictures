@@ -18,9 +18,6 @@
     "url": "https://github.com/amireldor/pigeon.pictures/issues"
   },
   "homepage": "https://github.com/amireldor/pigeon.pictures#readme",
-  "dependencies": {
-    "mustache": "^4.2.0"
-  },
   "devDependencies": {
     "prettier": "3.6.2"
   }
