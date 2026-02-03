@@ -10,7 +10,7 @@
   "author": "Amir Eldor <amir@eldor.dev>",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.895.0",
+    "@aws-sdk/client-s3": "^3.981.0",
     "mustache": "^4.2.0"
   }
 }
